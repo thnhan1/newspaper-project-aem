@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/conf/newspaper" mode="merge"/>
+    <filter root="/content/newspaper" mode="merge"/>
+    <filter root="/content/dam/newspaper" mode="merge">
+        <exclude pattern="/content/dam/newspaper(/.*)?"/>
+        <include pattern="/content/dam/newspaper/jcr:content(/.*)?"/>
+    </filter>
+    <filter root="/content/dam/newspaper/asset.jpg" mode="merge"/>
+    <filter root="/content/experience-fragments/newspaper" mode="merge"/>
+</workspaceFilter>
