@@ -19,6 +19,28 @@
         <p class="cmp-helloworld__item-label">Text property:</p>
         <pre class="cmp-helloworld__item-output" data-cmp-hook-helloworld="property">${properties.text}</pre>
     </div>
+
+    <div>
+        <p>${'nav.home' @ i18n, hint='As in: trang chu, khong phai nha'}</p>
+        <p>${'nav.news' @ i18n}</p>
+        <p>${'nav.opinion' @ i18n}</p>
+        <p>${'nav.sport' @ i18n}</p>
+        <p>${'nav.culture' @ i18n}</p>
+        <p>${'nav.lifestyle' @ i18n}</p>
+
+    </div>
+    <div class="cmp-helloworld__item" data-sly-test="${properties.language}">
+        <p class="cmp-helloworld__item-label">Language property:</p>
+        <pre class="cmp-helloworld__item-output" data-cmp-hook-helloworld="language">${properties.language}</pre>
+
+        <p>${'nav.home' @ i18n}</p>
+        <p>${'nav.news' @ i18n}</p>
+        <p>${'nav.opinion' @ i18n}</p>
+        <p>${'nav.sport' @ i18n}</p>
+        <p>${'nav.culture' @ i18n}</p>
+        <p>${'nav.lifestyle' @ i18n}</p>
+    </div>
+
     <div class="cmp-helloworld__item" data-sly-use.model="com.fa.core.models.HelloWorldModel" data-sly-test="${model.message}">
         <p class="cmp-helloworld__item-label">Model message:</p>
         <pre class="cmp-helloworld__item-output"data-cmp-hook-helloworld="model">${model.message}</pre>
