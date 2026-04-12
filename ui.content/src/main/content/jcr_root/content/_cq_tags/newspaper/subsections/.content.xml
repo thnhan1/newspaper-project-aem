@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Tag"
+    jcr:title="Subsections"
+    jcr:title.de="Unterrubriken"
+    jcr:title.vi="Chuyên mục con">
+
+    <top-stories
+        jcr:primaryType="cq:Tag"
+        jcr:title="Top stories"
+        jcr:title.de="Aufmachermeldungen"
+        jcr:title.vi="Bài viết nổi bật"/>
+    <world
+        jcr:primaryType="cq:Tag"
+        jcr:title="World"
+        jcr:title.de="Welt"
+        jcr:title.vi="Thế giới"/>
+    <politics
+        jcr:primaryType="cq:Tag"
+        jcr:title="Politics"
+        jcr:title.de="Politik"
+        jcr:title.vi="Chính trị"/>
+    <business
+        jcr:primaryType="cq:Tag"
+        jcr:title="Business"
+        jcr:title.de="Wirtschaft"
+        jcr:title.vi="Kinh doanh"/>
+    <technology
+        jcr:primaryType="cq:Tag"
+        jcr:title="Technology"
+        jcr:title.de="Technologie"
+        jcr:title.vi="Công nghệ"/>
+    <science
+        jcr:primaryType="cq:Tag"
+        jcr:title="Science"
+        jcr:title.de="Wissenschaft"
+        jcr:title.vi="Khoa học"/>
+    <health
+        jcr:primaryType="cq:Tag"
+        jcr:title="Health"
+        jcr:title.de="Gesundheit"
+        jcr:title.vi="Sức khỏe"/>
+    <education
+        jcr:primaryType="cq:Tag"
+        jcr:title="Education"
+        jcr:title.de="Bildung"
+        jcr:title.vi="Giáo dục"/>
+    <environment
+        jcr:primaryType="cq:Tag"
+        jcr:title="Environment"
+        jcr:title.de="Umwelt"
+        jcr:title.vi="Môi trường"/>
+
+    <features
+        jcr:primaryType="cq:Tag"
+        jcr:title="Features"
+        jcr:title.de="Berichte"
+        jcr:title.vi="Chuyên đề"/>
+    <in-focus
+        jcr:primaryType="cq:Tag"
+        jcr:title="In focus"
+        jcr:title.de="Im Fokus"
+        jcr:title.vi="Trọng tâm"/>
+    <exclusive
+        jcr:primaryType="cq:Tag"
+        jcr:title="Exclusive"
+        jcr:title.de="Exklusiv"
+        jcr:title.vi="Độc quyền"/>
+    <interviews
+        jcr:primaryType="cq:Tag"
+        jcr:title="Interviews"
+        jcr:title.de="Interviews"
+        jcr:title.vi="Phỏng vấn"/>
+    <analysis
+        jcr:primaryType="cq:Tag"
+        jcr:title="Analysis"
+        jcr:title.de="Analyse"
+        jcr:title.vi="Phân tích"/>
+    <editorials
+        jcr:primaryType="cq:Tag"
+        jcr:title="Editorials"
+        jcr:title.de="Leitartikel"
+        jcr:title.vi="Xã luận"/>
+    <cartoon
+        jcr:primaryType="cq:Tag"
+        jcr:title="Cartoon"
+        jcr:title.de="Karikatur"
+        jcr:title.vi="Tranh biếm họa"/>
+
+    <food
+        jcr:primaryType="cq:Tag"
+        jcr:title="Food"
+        jcr:title.de="Essen"
+        jcr:title.vi="Ẩm thực"/>
+    <fashion
+        jcr:primaryType="cq:Tag"
+        jcr:title="Fashion"
+        jcr:title.de="Mode"
+        jcr:title.vi="Thời trang"/>
+    <travel
+        jcr:primaryType="cq:Tag"
+        jcr:title="Travel"
+        jcr:title.de="Reisen"
+        jcr:title.vi="Du lịch"/>
+    <relationships
+        jcr:primaryType="cq:Tag"
+        jcr:title="Relationships"
+        jcr:title.de="Beziehungen"
+        jcr:title.vi="Các mối quan hệ"/>
+    <fitness
+        jcr:primaryType="cq:Tag"
+        jcr:title="Fitness"
+        jcr:title.de="Fitness"
+        jcr:title.vi="Thể hình"/>
+</jcr:root>

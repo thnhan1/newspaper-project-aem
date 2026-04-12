@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Tag"
+    jcr:title="Sections"
+    jcr:title.de="Rubriken"
+    jcr:title.vi="Chuyên mục">
+    <news
+        jcr:primaryType="cq:Tag"
+        jcr:title="News"
+        jcr:title.de="Nachrichten"
+        jcr:title.vi="Tin tức"/>
+    <opinion
+        jcr:primaryType="cq:Tag"
+        jcr:title="Opinion"
+        jcr:title.de="Meinung"
+        jcr:title.vi="Quan điểm"/>
+    <sport
+        jcr:primaryType="cq:Tag"
+        jcr:title="Sport"
+        jcr:title.de="Sport"
+        jcr:title.vi="Thể thao"/>
+    <culture
+        jcr:primaryType="cq:Tag"
+        jcr:title="Culture"
+        jcr:title.de="Kultur"
+        jcr:title.vi="Văn hóa"/>
+    <lifestyle
+        jcr:primaryType="cq:Tag"
+        jcr:title="Lifestyle"
+        jcr:title.de="Lebensstil"
+        jcr:title.vi="Đời sống"/>
+</jcr:root>
