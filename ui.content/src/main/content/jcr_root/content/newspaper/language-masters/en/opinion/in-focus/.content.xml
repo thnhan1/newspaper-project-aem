@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
-        cq:allowedTemplates="[/conf/newspaper/settings/wcm/templates/(?!xf-).*]"
-        cq:conf="/conf/newspaper"
-        cq:language="vi"
+        cq:tags="[newspaper:subsections/in-focus]"
         cq:template="/conf/newspaper/settings/wcm/templates/page-content"
         jcr:primaryType="cq:PageContent"
-        jcr:title="Tiếng Việt"
+        jcr:title="In focus"
         sling:resourceType="newspaper/components/page">
         <root
             jcr:primaryType="nt:unstructured"
@@ -22,9 +20,4 @@
             </container>
         </root>
     </jcr:content>
-    <news/>
-    <opinion/>
-    <sport/>
-    <culture/>
-    <lifestyle/>
 </jcr:root>

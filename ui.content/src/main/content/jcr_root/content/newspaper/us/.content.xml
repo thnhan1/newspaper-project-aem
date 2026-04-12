@@ -7,6 +7,4 @@
         jcr:primaryType="cq:PageContent"
         jcr:title="us"
         sling:resourceType="newspaper/components/page"/>
-    <en/>
-    <de/>
 </jcr:root>

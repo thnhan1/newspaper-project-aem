@@ -2,12 +2,9 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
-        cq:allowedTemplates="[/conf/newspaper/settings/wcm/templates/(?!xf-).*]"
-        cq:conf="/conf/newspaper"
         cq:template="/conf/newspaper/settings/wcm/templates/page-content"
         jcr:primaryType="cq:PageContent"
         jcr:title="Language Masters"
-        sling:configRef="/conf/newspaper"
         sling:resourceType="newspaper/components/page"/>
     <en/>
     <vi/>
