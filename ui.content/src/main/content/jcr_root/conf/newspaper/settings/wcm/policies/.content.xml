@@ -5,6 +5,18 @@
     <rep:policy/>
     <newspaper jcr:primaryType="nt:unstructured">
         <components jcr:primaryType="nt:unstructured">
+            <structure jcr:primaryType="nt:unstructured">
+                <breadcrumb jcr:primaryType="nt:unstructured">
+                    <policy_breadcrumb
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Newspaper Breadcrumb"
+                        jcr:description="Breadcrumb navigation with article primaryTopic support."
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        startLevel="{Long}4">
+                        <jcr:content jcr:primaryType="nt:unstructured"/>
+                    </policy_breadcrumb>
+                </breadcrumb>
+            </structure>
             <form jcr:primaryType="nt:unstructured">
                 <container jcr:primaryType="nt:unstructured">
                     <form-container
