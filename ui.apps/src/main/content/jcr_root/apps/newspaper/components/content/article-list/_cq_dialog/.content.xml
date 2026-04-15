@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Article List"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content jcr:primaryType="nt:unstructured"
+             sling:resourceType="granite/ui/components/coral/foundation/container">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                  maximized="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <properties jcr:primaryType="nt:unstructured"
+                                jcr:title="Properties"
+                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                margin="{Boolean}true">
+                        <items jcr:primaryType="nt:unstructured">
+                            <columns jcr:primaryType="nt:unstructured"
+                                     sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <column jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <listRoot jcr:primaryType="nt:unstructured"
+                                                      sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                      fieldLabel="List root (optional)"
+                                                      name="./listRoot"
+                                                      rootPath="/content"/>
+                                            <queryMode jcr:primaryType="nt:unstructured"
+                                                       sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                       fieldLabel="Query mode"
+                                                       name="./queryMode">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <tags jcr:primaryType="nt:unstructured" text="By cq:tags (categories)" value="tags"/>
+                                                    <folder jcr:primaryType="nt:unstructured" text="By folder (date folders)" value="folder"/>
+                                                </items>
+                                            </queryMode>
+
+                                            <categories jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                                        fieldLabel="Categories (cq:tags)"
+                                                        name="./categories"
+                                                        multiple="{Boolean}true"/>
+
+                                            <folderRoot jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                        fieldLabel="Folder root (used when mode=folder, optional)"
+                                                        name="./folderRoot"
+                                                        rootPath="/content"/>
+
+                                            <limit jcr:primaryType="nt:unstructured"
+                                                   sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                                   fieldLabel="Max items"
+                                                   name="./limit"
+                                                   value="12"
+                                                   min="1"
+                                                   max="100"/>
+                                            <sortOrder jcr:primaryType="nt:unstructured"
+                                                       sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                                       fieldLabel="Sort order"
+                                                       name="./sortOrder">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <desc jcr:primaryType="nt:unstructured" text="Newest first" value="desc"/>
+                                                    <asc jcr:primaryType="nt:unstructured" text="Oldest first" value="asc"/>
+                                                </items>
+                                            </sortOrder>
+
+                                            <featuredArticle jcr:primaryType="nt:unstructured"
+                                                             sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                             fieldLabel="Featured article (optional)"
+                                                             name="./featuredArticle"
+                                                             rootPath="/content"/>
+
+                                            <excludeFeatured jcr:primaryType="nt:unstructured"
+                                                             sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                                             text="Exclude featured article from list results"
+                                                             name="./excludeFeatured"
+                                                             value="true"
+                                                             checked="{Boolean}true"/>
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
+                        </items>
+                    </properties>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>
+

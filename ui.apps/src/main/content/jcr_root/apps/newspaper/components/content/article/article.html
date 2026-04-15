@@ -1,0 +1,26 @@
+<sly data-sly-use.model="com.fa.core.models.ArticleModel"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html"/>
+
+<article class="cmp-article" id="${model.id}">
+    <header class="cmp-article__header">
+        <h1 class="cmp-article__headline">${model.headline}</h1>
+
+        <div class="cmp-article__meta" data-sly-test="${model.byline || model.date}">
+            <span class="cmp-article__byline" data-sly-test="${model.byline}">${model.byline}</span>
+            <time class="cmp-article__date"
+                  data-sly-test="${model.date}"
+                  datetime="${model.date}">${model.date}</time>
+        </div>
+
+        <p class="cmp-article__summary" data-sly-test="${model.summary}">${model.summary}</p>
+    </header>
+
+    <figure class="cmp-article__media" data-sly-test="${model.image}">
+        <img class="cmp-article__image"
+             src="${model.image @ context='uri'}"
+             alt="${model.imageAlt}"/>
+    </figure>
+</article>
+
+<sly data-sly-call="${template.placeholder @ isEmpty=!model.headline, classAppend='cmp-article'}"/>
+
