@@ -75,5 +75,8 @@
   
     "message.loading": "加载中...",
     "message.no-data": "暂无数据",
-    "error.general": "发生错误。请稍后重试。"
+    "error.general": "发生错误。请稍后重试。",
+
+    "breadcrumb.aria.label": "面包屑导航",
+    "breadcrumb.home": "首页"
   }

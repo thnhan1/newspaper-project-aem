@@ -75,5 +75,8 @@
   
     "message.loading": "Đang tải...",
     "message.no-data": "Không có dữ liệu",
-    "error.general": "Đã xảy ra lỗi. Vui lòng thử lại sau."
+    "error.general": "Đã xảy ra lỗi. Vui lòng thử lại sau.",
+
+    "breadcrumb.aria.label": "Điều hướng breadcrumb",
+    "breadcrumb.home": "Trang chủ"
   }

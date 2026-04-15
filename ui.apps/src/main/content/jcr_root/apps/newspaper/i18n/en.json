@@ -75,5 +75,8 @@
   
     "message.loading": "Loading...",
     "message.no-data": "No data available",
-    "error.general": "An error occurred. Please try again later."
+    "error.general": "An error occurred. Please try again later.",
+
+    "breadcrumb.aria.label": "Breadcrumb navigation",
+    "breadcrumb.home": "Home"
   }

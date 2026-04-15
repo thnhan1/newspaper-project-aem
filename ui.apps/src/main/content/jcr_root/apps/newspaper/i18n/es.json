@@ -75,5 +75,8 @@
   
     "message.loading": "Cargando...",
     "message.no-data": "No hay datos disponibles",
-    "error.general": "Ocurrió un error. Por favor, inténtelo de nuevo más tarde."
+    "error.general": "Ocurrió un error. Por favor, inténtelo de nuevo más tarde.",
+
+    "breadcrumb.aria.label": "Navegación de ruta de navegación",
+    "breadcrumb.home": "Inicio"
   }

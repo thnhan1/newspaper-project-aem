@@ -1,27 +1,41 @@
-<nav data-sly-use.breadcrumb="com.fa.core.models.BreadcrumbModel"
-     data-sly-use.template="core/wcm/components/commons/v1/templates.html"
+<sly data-sly-use.breadcrumb="com.fa.core.models.BreadcrumbModel"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html"/>
+
+<nav data-sly-test="${breadcrumb.items.size > 0}"
      id="${breadcrumb.id}"
      class="cmp-breadcrumb"
-     aria-label="${'Breadcrumb' @ i18n}"
-     data-sly-test="${breadcrumb.items.size > 0}"
-     data-cmp-data-layer="${breadcrumb.data.json}"
+     aria-label="${'breadcrumb.aria.label' @ i18n}"
      role="navigation">
+
     <ol class="cmp-breadcrumb__list"
-        itemscope itemtype="http://schema.org/BreadcrumbList"
-        data-sly-list.navItem="${breadcrumb.items}">
-        <li class="cmp-breadcrumb__item${navItem.active ? ' cmp-breadcrumb__item--active' : ''}"
-            aria-current="${navItem.active ? 'page' : false}"
-            data-cmp-data-layer="${navItem.data.json}"
-            itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a data-sly-attribute="${navItem.link.htmlAttributes}"
+        itemscope
+        itemtype="http://schema.org/BreadcrumbList">
+
+        <li data-sly-repeat.item="${breadcrumb.items}"
+            class="cmp-breadcrumb__item${item.active ? ' cmp-breadcrumb__item--active' : ''}"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="http://schema.org/ListItem">
+
+            <a data-sly-test="${!item.active && item.link.valid}"
+               data-sly-attribute="${item.link.htmlAttributes}"
                class="cmp-breadcrumb__item-link"
                itemprop="item"
-               data-cmp-clickable="${breadcrumb.data ? true : false}"
-               data-sly-unwrap="${navItem.active || !navItem.link.valid}">
-                <span itemprop="name">${navItem.title}</span>
+               aria-current="${item.active ? 'page' : false}">
+                <span itemprop="name">${item.title}</span>
             </a>
-            <meta itemprop="position" content="${navItemList.count}" />
+
+            <span data-sly-test="${item.active || !item.link.valid}"
+                  class="cmp-breadcrumb__item-text"
+                  itemprop="name"
+                  aria-current="${item.active ? 'page' : false}">
+                ${item.title}
+            </span>
+
+            <meta itemprop="position" content="${itemList.count}"/>
         </li>
+
     </ol>
 </nav>
-<sly data-sly-call="${template.placeholder @ isEmpty=breadcrumb.items.size == 0, classAppend='cmp-breadcrumb'}"></sly>
+
+<sly data-sly-call="${template.placeholder @ isEmpty=breadcrumb.items.size == 0, classAppend='cmp-breadcrumb'}"/>

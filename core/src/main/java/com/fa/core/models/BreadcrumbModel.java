@@ -1,6 +1,7 @@
 package com.fa.core.models;
 
 import com.adobe.cq.wcm.core.components.commons.link.Link;
+import com.adobe.cq.wcm.core.components.commons.link.LinkManager;
 import com.adobe.cq.wcm.core.components.models.Breadcrumb;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.Page;
@@ -8,34 +9,23 @@ import com.day.cq.wcm.api.PageManager;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.apache.sling.models.annotations.via.ResourceSuperType;
+import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayDeque;
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Deque;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Sling Model mở rộng Core Breadcrumb v3.
- *
- * <ul>
- *   <li>Taxonomy page: delegate hoàn toàn cho Core Component.</li>
- *   <li>Article page (path chứa "/articles/"): đọc {@code cq:tags},
- *       map tag ID thành page path (newspaper:news/world → {root}/news/world),
- *       build: Home > News > World > Article title.</li>
- * </ul>
- */
 @Model(
         adaptables = SlingHttpServletRequest.class,
         adapters = Breadcrumb.class,
@@ -46,14 +36,14 @@ public class BreadcrumbModel implements Breadcrumb {
 
     private static final Logger LOG = LoggerFactory.getLogger(BreadcrumbModel.class);
 
-    static final String RESOURCE_TYPE = "newspaper/components/structure/breadcrumb";
-    private static final String ARTICLES_SEGMENT = "/articles/";
+    public static final String RESOURCE_TYPE = "newspaper/components/structure/breadcrumb";
+
     private static final String TAG_NAMESPACE = "newspaper:";
-    private static final int DEFAULT_ROOT_DEPTH = 4;
+    private static final String ARTICLES_SEGMENT = "/articles/";
+    private static final int LANGUAGE_ROOT_DEPTH = 3; // /content/newspaper/language-masters/en
 
     @Self
-    @Via(type = ResourceSuperType.class)
-    private Breadcrumb delegate;
+    private SlingHttpServletRequest request;
 
     @ScriptVariable
     private Page currentPage;
@@ -61,100 +51,188 @@ public class BreadcrumbModel implements Breadcrumb {
     @ScriptVariable
     private PageManager pageManager;
 
+    @ScriptVariable
+    private Resource resource;
+
+    @Self
+    private LinkManager linkManager;
+
+    @ValueMapValue
+    @Default(booleanValues = false)
+    private boolean hideCurrent;
+
+    @ValueMapValue
+    @Default(booleanValues = false)
+    private boolean showHidden;
+
+    @ValueMapValue
+    @Default(intValues = 2)
+    private int startLevel;
+
+    @ValueMapValue
+    @Default(booleanValues = true)
+    private boolean disableShadowing;
+
+    @ValueMapValue
+    private String selectedTag;
+
+    private List<NavigationItem> items;
+
+    @PostConstruct
+    protected void init() {
+        items = new ArrayList<>();
+
+        if (currentPage == null) {
+            return;
+        }
+
+        if (!currentPage.getPath().contains(ARTICLES_SEGMENT)) {
+            return;
+        }
+
+        buildBreadcrumbItems();
+    }
+
     @Override
     public Collection<NavigationItem> getItems() {
-        if (currentPage == null) {
-            return delegateItems();
+        return items != null ? items : Collections.emptyList();
+    }
+
+    private void buildBreadcrumbItems() {
+        // Get language root (e.g., /content/newspaper/language-masters/en)
+        Page languageRoot = currentPage.getAbsoluteParent(LANGUAGE_ROOT_DEPTH);
+        if (languageRoot == null) {
+            LOG.warn("Could not find language root at depth {} for page: {}", LANGUAGE_ROOT_DEPTH, currentPage.getPath());
+            fallbackToSimpleBreadcrumb();
+            return;
         }
-        if (!currentPage.getPath().contains(ARTICLES_SEGMENT)) {
-            return delegateItems();
+
+        LOG.info("Language root found: {}", languageRoot.getPath());
+        
+        // Add Home (language root) as first item
+        items.add(new BreadcrumbItem(languageRoot, false, linkManager, true));
+
+        String tagPath = extractTagPath();
+
+        if (StringUtils.isNotBlank(tagPath)) {
+            LOG.info("Building breadcrumb from tag path: {}", tagPath);
+            String[] segments = tagPath.split("/");
+            
+            // Build path from language root
+            // MSM: All languages use same structure (news/tech)
+            String basePath = languageRoot.getPath();
+
+            for (String segment : segments) {
+                String topicPath = basePath + "/" + segment;
+                LOG.debug("Looking for topic/subtopic page at path: {}", topicPath);
+                Page topicPage = pageManager.getPage(topicPath);
+
+                if (topicPage != null) {
+                    LOG.info("Found topic page: {} (title: {}, hideInNav: {})", 
+                             topicPage.getPath(), topicPage.getTitle(), topicPage.isHideInNav());
+                    if (showHidden || !topicPage.isHideInNav()) {
+                        items.add(new BreadcrumbItem(topicPage, false, linkManager, false));
+                        LOG.debug("Added breadcrumb item: {}", topicPage.getTitle());
+                    } else {
+                        LOG.debug("Skipping hidden page: {}", topicPage.getPath());
+                    }
+                } else {
+                    LOG.warn("Topic/subtopic page not found at path: {} - skipping this segment", topicPath);
+                }
+                
+                // Update base path for nested segments (e.g., news -> news/tech)
+                basePath = topicPath;
+            }
+        } else {
+            LOG.info("No tag path found, using simple breadcrumb for page: {}", currentPage.getPath());
         }
-        return buildArticleBreadcrumb();
+
+        // Add current article page
+        if (!hideCurrent) {
+            items.add(new BreadcrumbItem(currentPage, true, linkManager, false));
+            LOG.debug("Added current page to breadcrumb: {}", currentPage.getTitle());
+        }
+        
+        LOG.info("Built breadcrumb with {} items for page: {}", items.size(), currentPage.getPath());
+    }
+
+    private void fallbackToSimpleBreadcrumb() {
+        Page languageRoot = currentPage.getAbsoluteParent(LANGUAGE_ROOT_DEPTH);
+        if (languageRoot != null) {
+            items.add(new BreadcrumbItem(languageRoot, false, linkManager, true));
+            LOG.debug("Fallback: Added language root as home: {}", languageRoot.getPath());
+        }
+        if (!hideCurrent && currentPage != null) {
+            items.add(new BreadcrumbItem(currentPage, true, linkManager, false));
+            LOG.debug("Fallback: Added current page: {}", currentPage.getPath());
+        }
+    }
+
+    private String extractTagPath() {
+        LOG.debug("Extracting tag path for page: {}", currentPage.getPath());
+        
+        // Check if author selected a specific tag in dialog
+        if (StringUtils.isNotBlank(selectedTag)) {
+            LOG.debug("Using selected tag from dialog: {}", selectedTag);
+            if (selectedTag.startsWith(TAG_NAMESPACE)) {
+                String tagPath = selectedTag.substring(TAG_NAMESPACE.length());
+                LOG.debug("Extracted tag path from selected tag: {}", tagPath);
+                return tagPath;
+            }
+            LOG.warn("Selected tag does not start with namespace {}: {}", TAG_NAMESPACE, selectedTag);
+            return null;
+        }
+
+        // Get tags from page content resource (jcr:content)
+        Resource contentResource = currentPage.getContentResource();
+        if (contentResource == null) {
+            LOG.warn("No content resource found for page: {}", currentPage.getPath());
+            return null;
+        }
+
+        ValueMap pageProperties = contentResource.getValueMap();
+        String[] tags = pageProperties.get("cq:tags", String[].class);
+
+        LOG.debug("Found tags on page {}: {}", currentPage.getPath(), 
+                  tags != null ? Arrays.toString(tags) : "null");
+
+        if (tags == null || tags.length == 0) {
+            LOG.debug("No tags found on page: {}", currentPage.getPath());
+            return null;
+        }
+
+        for (String tag : tags) {
+            LOG.debug("Checking tag: {}", tag);
+            if (tag.startsWith(TAG_NAMESPACE)) {
+                String tagPath = tag.substring(TAG_NAMESPACE.length());
+                LOG.info("Using tag '{}' for breadcrumb, extracted path: {}", tag, tagPath);
+                return tagPath;
+            }
+        }
+
+        LOG.debug("No newspaper namespace tags found in: {}", Arrays.toString(tags));
+        return null;
     }
 
     @Override
     public String getId() {
-        return delegate != null ? delegate.getId() : null;
+        String id = resource.getValueMap().get("id", String.class);
+        return StringUtils.isNotBlank(id) ? id : "cmp-breadcrumb-" + Math.abs(resource.getPath().hashCode());
     }
 
-    private Collection<NavigationItem> delegateItems() {
-        return delegate != null ? delegate.getItems() : Collections.emptyList();
-    }
-
-    private Collection<NavigationItem> buildArticleBreadcrumb() {
-        Page rootPage = currentPage.getAbsoluteParent(DEFAULT_ROOT_DEPTH);
-        if (rootPage == null || pageManager == null) {
-            return delegateItems();
-        }
-
-        Page taxonomyPage = resolveTagToPage(rootPage);
-
-        List<NavigationItem> result = new ArrayList<>();
-
-        result.add(new SimpleBreadcrumbItem(rootPage, false));
-
-        if (taxonomyPage != null) {
-            Deque<Page> trail = new ArrayDeque<>();
-            Page cursor = taxonomyPage;
-            while (cursor != null
-                    && cursor.getDepth() > rootPage.getDepth()
-                    && cursor.getPath().startsWith(rootPage.getPath())) {
-                trail.push(cursor);
-                cursor = cursor.getParent();
-            }
-            for (Page page : trail) {
-                result.add(new SimpleBreadcrumbItem(page, false));
-            }
-        }
-
-        result.add(new SimpleBreadcrumbItem(currentPage, true));
-
-        return Collections.unmodifiableList(result);
-    }
-
-    /**
-     * Map cq:tags trực tiếp thành page path.
-     * Tag "newspaper:news/world" → strip prefix → "news/world" → rootPath + "/news/world".
-     * Ưu tiên tag có path sâu nhất (cụ thể nhất).
-     */
-    private Page resolveTagToPage(Page rootPage) {
-        String[] tags = currentPage.getProperties().get("cq:tags", String[].class);
-        if (tags == null || tags.length == 0) {
-            return null;
-        }
-
-        String rootPath = rootPage.getPath();
-        Page bestMatch = null;
-        int bestDepth = -1;
-
-        for (String tag : tags) {
-            if (!tag.startsWith(TAG_NAMESPACE)) {
-                continue;
-            }
-            String relativePath = tag.substring(TAG_NAMESPACE.length());
-            if (StringUtils.isBlank(relativePath)) {
-                continue;
-            }
-            Page page = pageManager.getPage(rootPath + "/" + relativePath);
-            if (page != null && page.getDepth() > bestDepth) {
-                bestMatch = page;
-                bestDepth = page.getDepth();
-            }
-        }
-
-        return bestMatch;
-    }
-
-    private static class SimpleBreadcrumbItem implements NavigationItem {
+    private static class BreadcrumbItem implements NavigationItem {
 
         private final Page page;
         private final boolean active;
         private final Link<Page> link;
+        private final boolean isRoot;
 
-        SimpleBreadcrumbItem(Page page, boolean active) {
+        @SuppressWarnings("unchecked")
+        BreadcrumbItem(Page page, boolean active, LinkManager linkManager, boolean isRoot) {
             this.page = page;
             this.active = active;
-            this.link = active ? null : new SimpleLink(page);
+            this.isRoot = isRoot;
+            this.link = linkManager.get(page).build();
         }
 
         @Override
@@ -174,10 +252,22 @@ public class BreadcrumbModel implements Breadcrumb {
 
         @Override
         public String getTitle() {
-            String nav = page.getNavigationTitle();
-            if (StringUtils.isNotBlank(nav)) return nav;
-            String title = page.getTitle();
-            if (StringUtils.isNotBlank(title)) return title;
+            if (isRoot) {
+                return "Home";
+            }
+
+            if (StringUtils.isNotBlank(page.getNavigationTitle())) {
+                return page.getNavigationTitle();
+            }
+
+            if (StringUtils.isNotBlank(page.getPageTitle())) {
+                return page.getPageTitle();
+            }
+
+            if (StringUtils.isNotBlank(page.getTitle())) {
+                return page.getTitle();
+            }
+
             return page.getName();
         }
 
@@ -188,50 +278,17 @@ public class BreadcrumbModel implements Breadcrumb {
 
         @Override
         public String getURL() {
-            return page.getPath() + ".html";
+            return link.getURL();
         }
 
         @Override
-        public Link getLink() {
+        public Link<Page> getLink() {
             return link;
         }
 
         @Override
         public Resource getTeaserResource() {
             return null;
-        }
-    }
-
-    private static class SimpleLink implements Link<Page> {
-
-        private final Page page;
-        private final String url;
-
-        SimpleLink(Page page) {
-            this.page = page;
-            this.url = page.getPath() + ".html";
-        }
-
-        @Override
-        public boolean isValid() {
-            return true;
-        }
-
-        @Override
-        public String getURL() {
-            return url;
-        }
-
-        @Override
-        public Map<String, String> getHtmlAttributes() {
-            Map<String, String> attrs = new HashMap<>();
-            attrs.put("href", url);
-            return attrs;
-        }
-
-        @Override
-        public Page getReference() {
-            return page;
         }
     }
 }
