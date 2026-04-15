@@ -1,0 +1,181 @@
+<sly data-sly-use.nav="com.fa.core.models.NavModel"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html"/>
+
+<sly data-sly-test="${nav.items.size > 0}">
+<div class="gdn-nav__wrapper" data-component="nav">
+
+    <!--/* =====================================================
+        TOP BAR  (always visible: pillars + hamburger)
+        ===================================================== */-->
+    <div class="gdn-nav__topbar">
+
+        <!--/* ---- Pillars list (desktop) ---- */-->
+        <ul class="gdn-nav__pillars" role="list" id="${nav.id @ context='attribute'}">
+
+            <li data-sly-repeat.navItem="${nav.items}"
+                class="gdn-nav__pillar-item${(navItem.active || navItem.current) ? ' is-active' : ''}"
+                data-pillar="${itemList.count}">
+
+                <!--/* Pillar anchor */-->
+                <a href="${navItem.URL @ context='uri'}"
+                   class="gdn-nav__pillar-link"
+                   aria-haspopup="${navItem.children.size > 0 ? 'true' : 'false'}"
+                   aria-expanded="false"
+                   itemprop="url">
+                    <span class="gdn-nav__pillar-title">${navItem.title}</span>
+                </a>
+
+                <!--/* Desktop subnav panel (absolute full-width second row) */-->
+                <div data-sly-test="${navItem.children.size > 0}"
+                     class="gdn-nav__subnav"
+                     role="region"
+                     aria-label="${navItem.title}">
+                    <ul class="gdn-nav__subnav-list" role="list">
+                        <li data-sly-repeat.subItem="${navItem.children}"
+                            class="gdn-nav__subnav-item${(subItem.active || subItem.current) ? ' is-current' : ''}">
+                            <a href="${subItem.URL @ context='uri'}"
+                               class="gdn-nav__subnav-link"
+                               aria-current="${subItem.current ? 'page' : false}">
+                                ${subItem.title}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
+
+        <!--/* ---- Hamburger (yellow circle) ---- */-->
+        <button class="gdn-nav__burger"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="gdn-drawer">
+            <span class="gdn-nav__burger-bar" aria-hidden="true"></span>
+            <span class="gdn-nav__burger-bar" aria-hidden="true"></span>
+            <span class="gdn-nav__burger-bar" aria-hidden="true"></span>
+        </button>
+
+    </div>
+    <!--/* end topbar */-->
+
+    <!--/* =====================================================
+        SUBTOPIC BAR  (always show for active/current pillar)
+        ===================================================== */-->
+    <div class="gdn-nav__subbar" role="navigation" aria-label="Sub navigation">
+        <sly data-sly-repeat.navItem="${nav.items}">
+            <sly data-sly-test="${(navItem.active || navItem.current) && navItem.children.size > 0}">
+                <ul class="gdn-nav__subbar-list" role="list">
+                    <li data-sly-repeat.subItem="${navItem.children}"
+                        class="gdn-nav__subbar-item${(subItem.active || subItem.current) ? ' is-current' : ''}">
+                        <a href="${subItem.URL @ context='uri'}"
+                           class="gdn-nav__subbar-link"
+                           aria-current="${subItem.current ? 'page' : false}">
+                            ${subItem.title}
+                        </a>
+                    </li>
+                </ul>
+            </sly>
+        </sly>
+    </div>
+
+    <!--/* =====================================================
+        DESKTOP MEGA MENU (toggle by yellow button)
+        ===================================================== */-->
+    <div class="gdn-nav__mega" aria-hidden="true">
+        <div class="gdn-nav__mega-inner">
+            <div class="gdn-nav__mega-grid">
+                <div data-sly-repeat.mItem="${nav.items}" class="gdn-nav__mega-col">
+                    <a href="${mItem.URL @ context='uri'}" class="gdn-nav__mega-title">
+                        ${mItem.title}
+                    </a>
+                    <ul data-sly-test="${mItem.children.size > 0}" class="gdn-nav__mega-list" role="list">
+                        <li data-sly-repeat.mChild="${mItem.children}" class="gdn-nav__mega-item">
+                            <a href="${mChild.URL @ context='uri'}" class="gdn-nav__mega-link">
+                                ${mChild.title}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--/* =====================================================
+        MOBILE DRAWER  (full-screen, slides from left)
+        ===================================================== */-->
+    <nav class="gdn-nav__drawer"
+         id="gdn-drawer"
+         aria-label="${nav.accessibilityLabel}"
+         aria-hidden="true">
+
+        <!--/* Drawer header: close button */-->
+        <div class="gdn-nav__drawer-hd">
+            <button class="gdn-nav__drawer-close" aria-label="Close menu">
+                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="currentColor">
+                    <path d="M1 1l16 16M17 1L1 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!--/* L1 list */-->
+        <ul class="gdn-nav__drawer-list" role="list">
+
+            <li data-sly-repeat.dItem="${nav.items}"
+                class="gdn-nav__drawer-item">
+
+                <!--/* Has children → accordion toggle */-->
+                <button data-sly-test="${dItem.children.size > 0}"
+                        class="gdn-nav__drawer-expand"
+                        aria-expanded="false"
+                        aria-controls="gdn-dd-${dItemList.count}"
+                        data-accordion="true">
+                    <span class="gdn-nav__drawer-expand-lbl">${dItem.title}</span>
+                    <svg class="gdn-nav__chevron" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+                        <path d="M4.5 6.75L9 11.25l4.5-4.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <!--/* No children → plain link */-->
+                <a data-sly-test="${dItem.children.size == 0}"
+                   href="${dItem.URL @ context='uri'}"
+                   class="gdn-nav__drawer-link">
+                    ${dItem.title}
+                </a>
+
+                <!--/* Accordion dropdown list */-->
+                <div data-sly-test="${dItem.children.size > 0}"
+                     class="gdn-nav__drawer-dropdown"
+                     id="gdn-dd-${dItemList.count}">
+                    <ul class="gdn-nav__drawer-dropdown-list" role="list">
+                        <li class="gdn-nav__drawer-dropdown-item gdn-nav__drawer-dropdown-item--viewall">
+                            <a href="${dItem.URL @ context='uri'}"
+                               class="gdn-nav__drawer-dropdown-link gdn-nav__drawer-dropdown-link--viewall">
+                                View all ${dItem.title}
+                            </a>
+                        </li>
+                        <li data-sly-repeat.l2Item="${dItem.children}"
+                            class="gdn-nav__drawer-dropdown-item">
+                            <a href="${l2Item.URL @ context='uri'}"
+                               class="gdn-nav__drawer-dropdown-link">
+                                ${l2Item.title}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
+        <!--/* end L1 list */-->
+
+    </nav>
+    <!--/* end drawer */-->
+
+    <!--/* Backdrop */-->
+    <div class="gdn-nav__backdrop" aria-hidden="true"></div>
+
+</div>
+<!--/* end wrapper */-->
+</sly>
+
+<sly data-sly-call="${template.placeholder @ isEmpty=nav.items.size == 0, classAppend='gdn-nav__wrapper'}"/>
