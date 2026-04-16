@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -40,8 +39,7 @@ public class NavModel implements Navigation {
     protected static final String RESOURCE_TYPE = "newspaper/components/structure/nav";
 
     private static final String TAG_NAMESPACE = "newspaper:";
-    private static final String ARTICLES_SEGMENT = "/articles/";
-    private static final int LANGUAGE_ROOT_DEPTH = 3; // /content/newspaper/language-masters/en
+    private static final String PN_CQ_TAGS = "cq:tags";
 
     @Self
     @Via(type = ResourceSuperType.class)
@@ -62,7 +60,7 @@ public class NavModel implements Navigation {
 
     @PostConstruct
     protected void init() {
-        tagContext = TagContext.from(currentPage, pageManager);
+        tagContext = TagContext.from(currentPage);
 
         if (delegate != null) {
             Collection<NavigationItem> delegateItems = delegate.getItems();
@@ -113,7 +111,7 @@ public class NavModel implements Navigation {
             if (delegate.isActive()) {
                 return true;
             }
-            return tagContext != null && tagContext.matchesTopic(getPath());
+            return tagContext != null && tagContext.matches(getPath());
         }
 
         @Override
@@ -121,7 +119,7 @@ public class NavModel implements Navigation {
             if (delegate.isCurrent()) {
                 return true;
             }
-            return tagContext != null && tagContext.matchesTopic(getPath());
+            return tagContext != null && tagContext.matches(getPath());
         }
 
         @Override
@@ -178,7 +176,6 @@ public class NavModel implements Navigation {
                     result.add(new ChildItem(child, tagContext));
                 }
             }
-            LOG.debug("Loaded {} children for {}", result.size(), page.getPath());
             return result;
         }
     }
@@ -200,12 +197,12 @@ public class NavModel implements Navigation {
 
         @Override
         public boolean isActive() {
-            return tagContext != null && tagContext.matchesSubTopic(page.getPath());
+            return tagContext != null && tagContext.matches(page.getPath());
         }
 
         @Override
         public boolean isCurrent() {
-            return tagContext != null && tagContext.matchesSubTopic(page.getPath());
+            return tagContext != null && tagContext.matches(page.getPath());
         }
 
         @Override
@@ -250,93 +247,89 @@ public class NavModel implements Navigation {
     }
 
     /**
-     * Determines which topic/sub-topic should be active for article pages,
-     * using the same tag strategy as BreadcrumbModel (read cq:tags from jcr:content).
+     * Resolves the primary tag from the current article page, then finds
+     * which section/subsection pages under the language root carry that tag.
+     * Used to highlight the correct nav items when viewing an article.
      */
-    private static final class TagContext {
-        private final String topicPath;
-        private final String subTopicPath;
+    static final class TagContext {
+        private final List<String> matchedPaths;
 
-        private TagContext(String topicPath, String subTopicPath) {
-            this.topicPath = topicPath;
-            this.subTopicPath = subTopicPath;
+        private TagContext(List<String> matchedPaths) {
+            this.matchedPaths = matchedPaths;
         }
 
-        static TagContext from(Page currentPage, PageManager pageManager) {
-            if (currentPage == null || pageManager == null) {
+        static TagContext from(Page currentPage) {
+            if (currentPage == null) {
                 return null;
             }
 
-            // Only apply tag-derived active state for articles (MSM pattern)
-            if (!currentPage.getPath().contains(ARTICLES_SEGMENT)) {
+            String primaryTag = resolveFirstNewspaperTag(currentPage);
+            if (primaryTag == null) {
                 return null;
             }
 
-            Page languageRoot = currentPage.getAbsoluteParent(LANGUAGE_ROOT_DEPTH);
+            Page languageRoot = BreadcrumbModel.findLanguageRoot(currentPage);
             if (languageRoot == null) {
                 return null;
             }
 
-            String tagPath = extractTagPath(currentPage);
-            if (StringUtils.isBlank(tagPath)) {
-                return null;
-            }
-
-            String[] segments = tagPath.split("/");
-            if (segments.length == 0) {
-                return null;
-            }
-
-            String base = languageRoot.getPath();
-            String topicCandidate = base + "/" + segments[0];
-            String subCandidate = segments.length >= 2 ? (topicCandidate + "/" + segments[1]) : null;
-
-            // Only accept if pages exist (prevents incorrect highlighting)
-            Page topicPage = pageManager.getPage(topicCandidate);
-            if (topicPage == null) {
-                return null;
-            }
-
-            String topicPath = topicPage.getPath();
-            String subTopicPath = null;
-            if (StringUtils.isNotBlank(subCandidate)) {
-                Page subPage = pageManager.getPage(subCandidate);
-                if (subPage != null) {
-                    subTopicPath = subPage.getPath();
+            List<String> paths = new ArrayList<>();
+            Iterator<Page> sections = languageRoot.listChildren();
+            while (sections.hasNext()) {
+                Page section = sections.next();
+                if (pageHasTag(section, primaryTag)) {
+                    paths.add(section.getPath());
+                    return new TagContext(paths);
+                }
+                Iterator<Page> subsections = section.listChildren();
+                while (subsections.hasNext()) {
+                    Page subsection = subsections.next();
+                    if (pageHasTag(subsection, primaryTag)) {
+                        paths.add(section.getPath());
+                        paths.add(subsection.getPath());
+                        return new TagContext(paths);
+                    }
                 }
             }
-
-            return new TagContext(topicPath, subTopicPath);
+            return null;
         }
 
-        boolean matchesTopic(String path) {
-            return StringUtils.isNotBlank(topicPath) && StringUtils.equals(topicPath, path);
+        boolean matches(String path) {
+            return matchedPaths != null && matchedPaths.contains(path);
         }
 
-        boolean matchesSubTopic(String path) {
-            return StringUtils.isNotBlank(subTopicPath) && StringUtils.equals(subTopicPath, path);
-        }
-
-        private static String extractTagPath(Page page) {
+        private static String resolveFirstNewspaperTag(Page page) {
             Resource contentResource = page.getContentResource();
             if (contentResource == null) {
                 return null;
             }
-
-            ValueMap vm = contentResource.getValueMap();
-            String[] tags = vm.get("cq:tags", String[].class);
-            if (tags == null || tags.length == 0) {
+            String[] tags = contentResource.getValueMap().get(PN_CQ_TAGS, String[].class);
+            if (tags == null) {
                 return null;
             }
-
             for (String tag : tags) {
-                if (StringUtils.startsWith(tag, TAG_NAMESPACE)) {
-                    return tag.substring(TAG_NAMESPACE.length());
+                if (tag.startsWith(TAG_NAMESPACE)) {
+                    return tag;
                 }
             }
-
-            LOG.debug("No {} tags found for {}. Tags: {}", TAG_NAMESPACE, page.getPath(), Arrays.toString(tags));
             return null;
+        }
+
+        private static boolean pageHasTag(Page page, String tagId) {
+            Resource contentResource = page.getContentResource();
+            if (contentResource == null) {
+                return false;
+            }
+            String[] tags = contentResource.getValueMap().get(PN_CQ_TAGS, String[].class);
+            if (tags == null) {
+                return false;
+            }
+            for (String t : tags) {
+                if (t.equals(tagId)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
