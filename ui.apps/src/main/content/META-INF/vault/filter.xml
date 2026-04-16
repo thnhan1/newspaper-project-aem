@@ -3,4 +3,5 @@
     <filter root="/apps/newspaper/clientlibs"/>
     <filter root="/apps/newspaper/components"/>
     <filter root="/apps/newspaper/i18n"/>
+    <filter root="/apps/newspaper/blueprintconfigs"/>
 </workspaceFilter>

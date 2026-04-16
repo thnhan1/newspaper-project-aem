@@ -1,0 +1,82 @@
+{
+    "nav.home": "Trang chủ",
+    "nav.news": "Tin tức",
+    "nav.opinion": "Quan điểm",
+    "nav.sport": "Thể thao",
+    "nav.culture": "Văn hóa",
+    "nav.lifestyle": "Đời sống",
+  
+    "sections.news": "Tin tức",
+    "sections.opinion": "Quan điểm",
+    "sections.sport": "Thể thao",
+    "sections.culture": "Văn hóa",
+    "sections.lifestyle": "Đời sống",
+  
+    "subsections.top-stories": "Bài viết nổi bật",
+    "subsections.world": "Thế giới",
+    "subsections.politics": "Chính trị",
+    "subsections.business": "Kinh doanh",
+    "subsections.technology": "Công nghệ",
+    "subsections.science": "Khoa học",
+    "subsections.health": "Sức khỏe",
+    "subsections.education": "Giáo dục",
+    "subsections.environment": "Môi trường",
+  
+    "subsections.features": "Chuyên đề",
+    "subsections.in-focus": "Trọng tâm",
+    "subsections.exclusive": "Độc quyền",
+    "subsections.interviews": "Phỏng vấn",
+    "subsections.analysis": "Phân tích",
+    "subsections.editorials": "Xã luận",
+    "subsections.cartoon": "Tranh biếm họa",
+  
+    "subsections.food": "Ẩm thực",
+    "subsections.fashion": "Thời trang",
+    "subsections.travel": "Du lịch",
+    "subsections.relationships": "Các mối quan hệ",
+    "subsections.fitness": "Thể hình",
+  
+    "media.video": "Video",
+    "media.podcasts": "Podcast",
+    "media.photography": "Nhiếp ảnh",
+    "media.infographics": "Đồ họa thông tin",
+  
+    "labels.latest": "Mới nhất",
+    "labels.breaking": "Nóng",
+    "labels.trending": "Đang được quan tâm",
+    "labels.most-viewed": "Xem nhiều nhất",
+    "labels.most-commented": "Bình luận nhiều nhất",
+    "labels.editors-pick": "Biên tập viên chọn",
+  
+    "article.read-more": "Đọc thêm",
+    "article.related": "Bài viết liên quan",
+    "article.share": "Chia sẻ",
+    "article.comments": "Bình luận",
+    "article.author": "Tác giả",
+    "article.published-date": "Ngày đăng",
+    "article.updated-date": "Ngày cập nhật",
+  
+    "search.placeholder": "Tìm kiếm tin tức, chủ đề...",
+    "search.button": "Tìm kiếm",
+    "search.result": "Kết quả tìm kiếm",
+    "search.no-result": "Không tìm thấy kết quả",
+  
+    "footer.about": "Giới thiệu",
+    "footer.contact": "Liên hệ",
+    "footer.privacy": "Chính sách bảo mật",
+    "footer.terms": "Điều khoản sử dụng",
+    "footer.copyright": "© {0} News Portal. Tất cả các quyền được bảo lưu.",
+  
+    "workflow.draft": "Bản nháp",
+    "workflow.pending": "Chờ duyệt",
+    "workflow.approved": "Đã duyệt",
+    "workflow.published": "Đã xuất bản",
+    "workflow.rejected": "Bị từ chối",
+  
+    "message.loading": "Đang tải...",
+    "message.no-data": "Không có dữ liệu",
+    "error.general": "Đã xảy ra lỗi. Vui lòng thử lại sau.",
+
+    "breadcrumb.aria.label": "Điều hướng breadcrumb",
+    "breadcrumb.home": "Trang chủ"
+  }

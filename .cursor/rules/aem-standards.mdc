@@ -1,0 +1,114 @@
+---
+description: AEM 6.5.24 on-premise standards with Java 11 and no deprecated code
+alwaysApply: true
+---
+
+# AEM 6.5.24 On-Premise Standards
+
+## Project Configuration
+
+- **AEM Version:** 6.5.24 (on-premise)
+- **Java Version:** 11
+- **Build Tool:** Maven (aem-project-archetype)
+- **Critical:** Never use deprecated APIs or methods
+
+## Deprecated Code Prevention
+
+### Sling Models
+
+```java
+// ❌ DEPRECATED - Do not use @Model with adaptables array
+@Model(adaptables = {Resource.class, SlingHttpServletRequest.class})
+
+// ✅ GOOD - Use single adaptable
+@Model(adaptables = Resource.class)
+```
+
+### Resource Resolver
+
+```java
+// ❌ DEPRECATED - Do not use administrative ResourceResolver
+resourceResolverFactory.getAdministrativeResourceResolver(null);
+
+// ✅ GOOD - Use service user with proper mapping
+Map<String, Object> param = new HashMap<>();
+param.put(ResourceResolverFactory.SUBSERVICE, "myServiceUser");
+resourceResolverFactory.getServiceResourceResolver(param);
+```
+
+### JCR Session
+
+```java
+// ❌ DEPRECATED - Do not use Session.save()
+session.save();
+
+// ✅ GOOD - Use Resource API
+resourceResolver.commit();
+```
+
+### Component Context
+
+```java
+// ❌ DEPRECATED - Do not use ComponentContext
+ComponentContext componentContext = WCMUtils.getComponentContext(request);
+
+// ✅ GOOD - Use modern Sling Models and resource resolution
+@Model(adaptables = SlingHttpServletRequest.class)
+```
+
+## Java 11 Best Practices
+
+- Use `var` for local variable type inference when type is obvious
+- Prefer `List.of()`, `Set.of()`, `Map.of()` for immutable collections
+- Use `String.isBlank()`, `String.lines()`, `String.strip()` for string operations
+- Leverage `Optional.isEmpty()` instead of `!isPresent()`
+
+## HTL Standards
+
+```html
+<!-- ✅ Use data-sly-use with full class path -->
+<div data-sly-use.model="com.fa.core.models.BreadcrumbModel">
+    ${model.title}
+</div>
+
+<!-- ❌ Avoid deprecated HTL global objects -->
+<!-- Do not use: pageProperties, inheritedPageProperties (use model instead) -->
+```
+
+## OSGi Services
+
+```java
+// ✅ Use OSGi R7 annotations
+@Component(service = MyService.class)
+@Designate(ocd = MyService.Config.class)
+public class MyServiceImpl implements MyService {
+    
+    @ObjectClassDefinition(name = "My Service Configuration")
+    public @interface Config {
+        @AttributeDefinition(name = "Property")
+        String property() default "value";
+    }
+}
+
+// ❌ Do not use Felix SCR annotations (@Reference, @Component from org.apache.felix.scr)
+```
+
+## Query Best Practices
+
+```java
+// ✅ Use QueryBuilder for safe queries
+QueryBuilder queryBuilder = resourceResolver.adaptTo(QueryBuilder.class);
+Map<String, String> predicates = new HashMap<>();
+predicates.put("path", "/content/newspaper");
+predicates.put("type", "cq:Page");
+Query query = queryBuilder.createQuery(PredicateGroup.create(predicates), session);
+
+// ❌ Avoid raw JCR-SQL2 without proper escaping
+```
+
+## Maven Dependencies
+
+- Always specify dependency versions explicitly
+- Use `<dependencyManagement>` in parent POM
+- Exclude transitive dependencies that bring deprecated APIs
+- Verify compatibility with AEM 6.5.24 and Java 11

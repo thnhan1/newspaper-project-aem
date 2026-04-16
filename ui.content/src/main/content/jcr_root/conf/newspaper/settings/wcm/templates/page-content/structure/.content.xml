@@ -18,6 +18,10 @@
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="newspaper/components/container"
                 layout="responsiveGrid">
+                <breadcrumb
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="newspaper/components/structure/breadcrumb"
+                    startLevel="{Long}4"/>
                 <title
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="newspaper/components/title"

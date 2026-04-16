@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
+    <filter root="/content/cq:tags/newspaper" mode="merge"/>
     <filter root="/conf/newspaper" mode="merge"/>
     <filter root="/content/newspaper" mode="merge"/>
     <filter root="/content/dam/newspaper" mode="merge">

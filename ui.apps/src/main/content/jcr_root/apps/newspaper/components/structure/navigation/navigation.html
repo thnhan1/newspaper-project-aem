@@ -1,0 +1,126 @@
+<sly data-sly-use.navigation="com.fa.core.models.NavigationModel"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html"
+     data-sly-test="${navigation.items.size > 0}"/>
+
+<!--/* Mobile Navigation Button (< 1024px) */-->
+<button class="cmp-navigation__toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="${navigation.id}">
+    <span class="cmp-navigation__toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </span>
+    <span class="cmp-navigation__toggle-text">Menu</span>
+</button>
+
+<!--/* Navigation Container */-->
+<nav id="${navigation.id}"
+     class="cmp-navigation"
+     role="navigation"
+     aria-label="${navigation.accessibilityLabel}"
+     itemscope
+     itemtype="http://schema.org/SiteNavigationElement">
+
+    <!--/* Mobile Overlay Header */-->
+    <div class="cmp-navigation__mobile-header">
+        <button class="cmp-navigation__back"
+                aria-label="Back to main menu"
+                style="display: none;">
+            <span class="cmp-navigation__back-icon">‹</span>
+            <span class="cmp-navigation__back-text">Back</span>
+        </button>
+        <button class="cmp-navigation__close"
+                aria-label="Close navigation menu">
+            <span class="cmp-navigation__close-icon">×</span>
+        </button>
+    </div>
+
+    <!--/* Level 1: Main Topics */-->
+    <ul class="cmp-navigation__group cmp-navigation__group--level-1"
+        data-level="1">
+        <li data-sly-repeat.item="${navigation.items}"
+            class="cmp-navigation__item cmp-navigation__item--level-1${item.active ? ' cmp-navigation__item--active' : ''}${item.current ? ' cmp-navigation__item--current' : ''}"
+            itemprop="name">
+
+            <!--/* Desktop: Link with dropdown indicator */-->
+            <a href="${item.URL @ context='uri'}"
+               class="cmp-navigation__item-link cmp-navigation__item-link--desktop"
+               aria-current="${item.current ? 'page' : false}"
+               aria-haspopup="${item.children.size > 0 ? 'true' : 'false'}"
+               aria-expanded="false"
+               itemprop="url">
+                ${item.title}
+                <span data-sly-test="${item.children.size > 0}"
+                      class="cmp-navigation__item-arrow"
+                      aria-hidden="true">▾</span>
+            </a>
+
+            <!--/* Mobile: Button to show Level 2 (if has children) */-->
+            <button data-sly-test="${item.children.size > 0}"
+                    class="cmp-navigation__item-toggle"
+                    aria-label="Show ${item.title} submenu"
+                    data-target="level-2-${itemList.count}">
+                ${item.title}
+                <span class="cmp-navigation__item-arrow" aria-hidden="true">›</span>
+            </button>
+
+            <!--/* Mobile: Link (if no children) */-->
+            <a data-sly-test="${item.children.size == 0}"
+               href="${item.URL @ context='uri'}"
+               class="cmp-navigation__item-link cmp-navigation__item-link--mobile"
+               aria-current="${item.current ? 'page' : false}">
+                ${item.title}
+            </a>
+
+            <!--/* Level 2: Sub-topics (Desktop Dropdown / Mobile Full-screen) */-->
+            <div data-sly-test="${item.children.size > 0}"
+                 class="cmp-navigation__level-2-container"
+                 id="level-2-${itemList.count}"
+                 data-level="2"
+                 data-parent-title="${item.title}"
+                 data-parent-url="${item.URL}">
+
+                <!--/* Mobile: Level 2 Header with Back button */-->
+                <div class="cmp-navigation__level-2-header">
+                    <button class="cmp-navigation__back-level-2"
+                            aria-label="Back to topics">
+                        <span class="cmp-navigation__back-icon">‹</span>
+                        <span class="cmp-navigation__back-text">Back</span>
+                    </button>
+                </div>
+
+                <ul class="cmp-navigation__group cmp-navigation__group--level-2"
+                    role="menu"
+                    aria-label="${item.title} submenu">
+
+                    <!--/* Mobile: Parent Topic Link (in đậm, ở đầu list) */-->
+                    <li class="cmp-navigation__item cmp-navigation__item--level-2 cmp-navigation__item--parent">
+                        <a href="${item.URL @ context='uri'}"
+                           class="cmp-navigation__item-link cmp-navigation__item-link--parent">
+                            ${item.title}
+                        </a>
+                    </li>
+
+                    <!--/* Sub-topic items */-->
+                    <li data-sly-repeat.child="${item.children}"
+                        class="cmp-navigation__item cmp-navigation__item--level-2${child.active ? ' cmp-navigation__item--active' : ''}${child.current ? ' cmp-navigation__item--current' : ''}"
+                        role="menuitem">
+                        <a href="${child.URL @ context='uri'}"
+                           class="cmp-navigation__item-link"
+                           aria-current="${child.current ? 'page' : false}">
+                            ${child.title}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+    <!--/* Mobile Overlay Background */-->
+    <div class="cmp-navigation__overlay" aria-hidden="true"></div>
+</nav>
+
+<!--/* Placeholder for edit mode */-->
+<sly data-sly-call="${template.placeholder @ isEmpty=navigation.items.size == 0, classAppend='cmp-navigation'}"/>

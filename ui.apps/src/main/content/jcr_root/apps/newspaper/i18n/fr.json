@@ -1,3 +1,6 @@
 {
-  "&amp;copy; {0} Newspaper Website Site. All rights reserved." : "&amp;copy; {0} Newspaper Website Site. Tous droits réservés."
+  "&amp;copy; {0} Newspaper Website Site. All rights reserved." : "&amp;copy; {0} Newspaper Website Site. Tous droits réservés.",
+
+  "breadcrumb.aria.label": "Navigation fil d'Ariane",
+  "breadcrumb.home": "Accueil"
 }

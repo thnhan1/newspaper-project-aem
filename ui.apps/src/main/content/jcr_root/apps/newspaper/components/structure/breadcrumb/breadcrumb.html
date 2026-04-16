@@ -1,0 +1,41 @@
+<sly data-sly-use.breadcrumb="com.fa.core.models.BreadcrumbModel"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html"/>
+
+<nav data-sly-test="${breadcrumb.items.size > 0}"
+     id="${breadcrumb.id}"
+     class="cmp-breadcrumb"
+     aria-label="${'breadcrumb.aria.label' @ i18n}"
+     role="navigation">
+
+    <ol class="cmp-breadcrumb__list"
+        itemscope
+        itemtype="http://schema.org/BreadcrumbList">
+
+        <li data-sly-repeat.item="${breadcrumb.items}"
+            class="cmp-breadcrumb__item${item.active ? ' cmp-breadcrumb__item--active' : ''}"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="http://schema.org/ListItem">
+
+            <a data-sly-test="${!item.active && item.link.valid}"
+               data-sly-attribute="${item.link.htmlAttributes}"
+               class="cmp-breadcrumb__item-link"
+               itemprop="item"
+               aria-current="${item.active ? 'page' : false}">
+                <span itemprop="name">${item.title}</span>
+            </a>
+
+            <span data-sly-test="${item.active || !item.link.valid}"
+                  class="cmp-breadcrumb__item-text"
+                  itemprop="name"
+                  aria-current="${item.active ? 'page' : false}">
+                ${item.title}
+            </span>
+
+            <meta itemprop="position" content="${itemList.count}"/>
+        </li>
+
+    </ol>
+</nav>
+
+<sly data-sly-call="${template.placeholder @ isEmpty=breadcrumb.items.size == 0, classAppend='cmp-breadcrumb'}"/>

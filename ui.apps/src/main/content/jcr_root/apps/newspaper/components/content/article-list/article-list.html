@@ -1,0 +1,24 @@
+<sly data-sly-use.model="com.fa.core.models.ArticleListModel"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html"/>
+
+<section class="cmp-article-list" id="${model.id}">
+    <ul class="cmp-article-list__items" role="list">
+        <li class="cmp-article-list__item" data-sly-repeat.item="${model.items}">
+            <a class="cmp-article-list__link" href="${item.url @ context='uri'}">
+                <div class="cmp-article-list__media" data-sly-test="${item.image}">
+                    <img class="cmp-article-list__img"
+                         src="${item.image @ context='uri'}"
+                         alt="${item.imageAlt}"
+                         loading="lazy"/>
+                </div>
+                <div class="cmp-article-list__body">
+                    <h3 class="cmp-article-list__title">${item.title}</h3>
+                    <p class="cmp-article-list__desc" data-sly-test="${item.description}">${item.description}</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</section>
+
+<sly data-sly-call="${template.placeholder @ isEmpty=model.items.size == 0, classAppend='cmp-article-list'}"/>
+
