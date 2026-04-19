@@ -1,0 +1,15 @@
+<sly data-sly-use.model="com.fa.core.models.ArticleBreadcrumb" />
+
+<ul class="cmp-breadcrumb" data-sly-list.item="${model.items}">
+    <li class="cmp-breadcrumb__item">
+        <a data-sly-test="${!item.active}"
+           href="${item.URL}"
+           class="cmp-breadcrumb__item-link">
+            ${item.title}
+        </a>
+        <span data-sly-test="${item.active}"
+              class="cmp-breadcrumb__item-label">
+            ${item.title}
+        </span>
+    </li>
+</ul>

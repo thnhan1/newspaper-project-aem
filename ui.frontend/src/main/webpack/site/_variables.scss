@@ -7,12 +7,14 @@ $font-height:           1.5;
 
 //== Color
 
-// Normal mode
-$color-foreground:      #202020;
-$color-background:      #ECECEC;
-$color-link:            #2020E0;
+// Synthwave '84 + Night Owl Theme Variation
 
-// Dark mode
-$color-foreground-dark: invert($color-foreground);
-$color-background-dark: invert($color-background);
-$color-link-dark:       invert($color-link);
+// Normal mode - warm synthwave inspired
+$color-foreground:      #1a1625;
+$color-background:      #f8f0f6;
+$color-link:           #d63384;
+
+// Dark mode - synthwave '84 + nightowl hybrid
+$color-foreground-dark:  #e8e6f0;
+$color-background-dark:  #0d0d14;
+$color-link-dark:        #ff79c6;

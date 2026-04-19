@@ -1,4 +1,8 @@
 ---
+trigger: always_on
+---
+
+---
 description: AEM 6.5 or newer on-premise standards with Java 11 and no deprecated code
 alwaysApply: true
 ---
@@ -11,6 +15,7 @@ alwaysApply: true
 - **Java Version:** 11
 - **Build Tool:** Maven (aem-project-archetype)
 - **Critical:** Never use deprecated APIs or methods
+- **Build Command**: Only use can run build command, you only can suggest build command, and you can run validate mvn command.
 
 ## Deprecated Code Prevention
 

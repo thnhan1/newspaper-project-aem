@@ -340,6 +340,15 @@
                     <jcr:content jcr:primaryType="nt:unstructured"/>
                 </policy_1575032193319>
             </download>
+            <contentfragment jcr:primaryType="nt:unstructured">
+                <policy_default
+                    jcr:description="Content Fragment cho Article Page"
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Content Fragment"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_default>
+            </contentfragment>
             <page jcr:primaryType="nt:unstructured">
                 <policy
                     jcr:description="Includes the required client libraries."
