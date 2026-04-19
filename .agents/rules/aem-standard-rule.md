@@ -15,6 +15,8 @@ alwaysApply: true
 - **Java Version:** 11
 - **Build Tool:** Maven (aem-project-archetype)
 - **Critical:** Never use deprecated APIs or methods
+- **Apache Sling**: 11
+- **Component**: Always use HTL, never use jsp
 - **Build Command**: Only use can run build command, you only can suggest build command, and you can run validate mvn command.
 
 ## Deprecated Code Prevention

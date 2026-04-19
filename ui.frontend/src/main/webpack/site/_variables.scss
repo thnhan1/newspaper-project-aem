@@ -1,20 +1,25 @@
-
 //== Font
 
-$font-family:           "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-size:             16px;
-$font-height:           1.5;
+$font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size: 16px;
+$font-height: 1.5;
 
 //== Color
 
-// Synthwave '84 + Night Owl Theme Variation
+$color-article-red: #DA281F;
+$color-article-blue: #2663FF;
+$color-article-charcoal: #202123;
+$color-article-white: #f8f8f8;
+$color-article-soft-gray: #d8d8d8;
+$color-article-light-gray: #bcbcbc;
+
 
 // Normal mode - warm synthwave inspired
-$color-foreground:      #1a1625;
-$color-background:      #f8f0f6;
-$color-link:           #d63384;
+$color-foreground: #1a1625;
+$color-background: #f8f0f6;
+$color-link: #d63384;
 
 // Dark mode - synthwave '84 + nightowl hybrid
-$color-foreground-dark:  #e8e6f0;
-$color-background-dark:  #0d0d14;
-$color-link-dark:        #ff79c6;
+$color-foreground-dark: #e8e6f0;
+$color-background-dark: #0d0d14;
+$color-link-dark: #ff79c6;

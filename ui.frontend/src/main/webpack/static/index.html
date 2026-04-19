@@ -1,123 +1,676 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <title>Static Frontend file</title>
-    <meta name="template" content="page-content"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="/etc.clientlibs/newspaper/clientlibs/clientlib-base.css" type="text/css">
-    <script type="text/javascript" src="/etc.clientlibs/newspaper/clientlibs/clientlib-dependencies.js"></script>
-    <link rel="stylesheet" href="/etc.clientlibs/newspaper/clientlibs/clientlib-dependencies.css" type="text/css">
+    <meta charset="UTF-8" />
+    <title>Bai viet 1</title>
+    <meta name="keywords" content="Tech,News,Opinion,Sport,Culture" />
+
+    <meta name="template" content="page-content" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+
+    <link rel="canonical" href="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1.html" />
+
+
+
+
+
+    <link rel="stylesheet"
+        href="/etc.clientlibs/newspaper/clientlibs/clientlib-base.lc-21edf01cf7bad83a3d48344fe0d1070c-lc.min.css"
+        type="text/css">
+
+
+
+
+    <script type="text/javascript">
+        (function () {
+            window.ContextHub = window.ContextHub || {};
+
+            /* setting paths */
+            ContextHub.Paths = ContextHub.Paths || {};
+            ContextHub.Paths.CONTEXTHUB_PATH = "/libs/settings/cloudsettings/legacy/contexthub";
+            ContextHub.Paths.RESOURCE_PATH = "\/content\/newspaper\/language\u002Dmasters\/en\/articles\/2026\/04\/15\/bai\u002Dviet\u002D1\/_jcr_content\/contexthub";
+            ContextHub.Paths.SEGMENTATION_PATH = "";
+            ContextHub.Paths.CQ_CONTEXT_PATH = "";
+
+            /* setting initial constants */
+            ContextHub.Constants = ContextHub.Constants || {};
+            ContextHub.Constants.ANONYMOUS_HOME = "/home/users/N/NanESN-idfRxpLcBNuS3";
+            ContextHub.Constants.MODE = "ui";
+        }());
+    </script>
+    <script src="/etc/cloudsettings.kernel.js/libs/settings/cloudsettings/legacy/contexthub"
+        type="text/javascript"></script>
+    <script type="text/javascript">
+        (function ($) {
+            'use strict';
+
+            /* options */
+            /**
+             * @type InjectContextHubOptions
+             */
+            var options = {};
+            /* where to include ContextHub's UI */
+
+            var injectWindow;
+            var allowEmbedding = false;
+
+            //using this to determine if running in Unified Shell to determine where 
+            // to inject ContextHub UI.  
+            var unifiedShellDiv = window.top.document.querySelector('#exc');
+
+            if (allowEmbedding) {
+                injectWindow = window;
+            } else if (!!unifiedShellDiv) {
+                injectWindow = unifiedShellDiv.querySelector('iframe').contentWindow;
+            } else {
+                injectWindow = window.top;
+            }
+
+            try {
+                //* if window.top contains 'ContextHubEmbedding' flag, use current window instead of window.top 
+                if (window.top.hasOwnProperty('ContextHubEmbedding') === true) {
+                    injectWindow = window;
+                }
+            } catch (error) {
+                // if window.top is not reachable for security reasons (like page embedded into an iframe on a different domain), use current window.
+                injectWindow = window;
+            }
+
+            /* is ContextHub UI loaded from another iframe? then hide it by default (event listeners will display it when requested) */
+            var isEmbedded = injectWindow !== window;
+            var visibility = isEmbedded ? 'none' : 'block';
+
+            /* display ContextHub immediately if it's embedded on same page as ContentFinder */
+            if (isEmbedded && $('#cq-cf-wrapper', injectWindow.document).length) {
+                /* inject container to a page which includes ContextHub and not to top window */
+                injectWindow = window;
+                visibility = 'block';
+                options['zIndex'] = 10000;
+            }
+
+            /*
+             * coralui3 related includes:
+             * http://localhost:4502/libs/granite/ui/content/dumplibs.test.html?categories=coralui3
+             */
+            var jsExtension = ".min.js";
+            var scripts = [
+                "/etc/cloudsettings.ui.js/libs/settings/cloudsettings/legacy/contexthub",
+                "/etc.clientlibs/clientlibs/granite/typekit" + jsExtension,
+                "/etc.clientlibs/clientlibs/granite/utils" + jsExtension,
+                "/etc.clientlibs/clientlibs/granite/jquery/granite" + jsExtension,
+                "/etc.clientlibs/clientlibs/granite/moment" + jsExtension,
+                "/etc.clientlibs/clientlibs/granite/coralui3" + jsExtension
+            ];
+            var cssExtension = ".min.css";
+            var styles = [
+                "/etc.clientlibs/clientlibs/granite/coralui3" + cssExtension,
+                "/etc/cloudsettings.styles.css/libs/settings/cloudsettings/legacy/contexthub"
+            ];
+
+            $.extend(options, {
+                address: "/etc/cloudsettings.ui.html//libs/settings/cloudsettings/legacy/contexthub",
+                display: visibility
+            });
+
+            window.injectContextHubUI(injectWindow.document, ContextHub, scripts, styles, options, function (UI, options) {
+                /* call it on parent ready, otherwise rarely window.document.body won't be ready due to race condition! */
+                $(window.document).ready(function () {
+                    var pageContainer = UI.Properties.get('PAGE_CONTAINER') || $(window.document.body);
+                    var zIndex = options.zIndex || UI.Properties.get('CONTAINER_UI_Z_INDEX') || 890;
+
+                    UI.Properties.set('CONTAINER_UI_Z_INDEX', zIndex);
+                    UI.Properties.set('PAGE_CONTAINER', pageContainer);
+
+                    /* unified shell */
+                    if (injectWindow.document.querySelectorAll('link[href*="exc-unifiedcontent"]').length > 0) {
+                        var excIframe = injectWindow.document.querySelector('.exc-core-sandbox iframe');
+                        var iframeTop = 0, unifiedShellHeight = 0;
+
+                        var editorTitleBarOffset = injectWindow.document
+                            .querySelector('.editor-panel-header').getBoundingClientRect().height
+                        //var editorTitleBarOffset = 50;
+
+                        if (excIframe) {
+                            iframeTop = excIframe.getBoundingClientRect().top;
+                            unifiedShellHeight = excIframe.contentWindow.document
+                                .querySelector('.header-main').getBoundingClientRect().height;
+
+                        }
+
+                        UI.Properties.set('IFRAME_TOP_MARGIN', iframeTop + editorTitleBarOffset);
+                        UI.Properties.set('UNIFIED_SHELL_HEIGHT', unifiedShellHeight);
+                        UI.Properties.set('HIDE_CONTAINER_DRAWER', true);
+                        UI.Container.visible({ state: true });
+                    } else {
+                        UI.Properties.set('UNIFIED_SHELL_HEIGHT', 0);
+                    }
+
+                    /* if document was not yet ready, set the page container once again later */
+                    if (pageContainer.length === 0) {
+                        $(function () {
+                            UI.Properties.set('PAGE_CONTAINER', $(window.document.body));
+                        });
+                    }
+
+                    if (isEmbedded) {
+                        /* hide ContextHub container on iframe unload - to get rid of white gap that is visible during page reload */
+                        window.onbeforeunload = function () {
+                            /* catch the errors in case objects will get destroyed before code will be executed */
+                            try {
+                                $(ContextHub.UIFrame).hide();
+                                var pageContainer = UI.Properties.get('PAGE_CONTAINER') || $('');
+                                pageContainer.css('transition', '');
+                                pageContainer.css('top', UI.Properties.get('IFRAME_TOP_MARGIN'));
+                            } catch (error) {
+                                console.error("Error while unloading the page: ", error);
+                            }
+                        };
+                    }
+                });
+            });
+
+        }(ContextHubJQ));
+    </script>
+    <!--cq{"decorated":false,"type":"granite/contexthub/components/contexthub","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/contexthub","structurePath":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/contexthub","selectors":null,"servlet":"Script /libs/granite/contexthub/components/contexthub/contexthub.jsp","totalTime":5,"selfTime":5}-->
+
+
+
+
+    <link rel="stylesheet"
+        href="/libs/cq/gui/components/authoring/editors/clientlibs/internal/page.lc-6a548464d3b95bd2495b3a709da9c504-lc.min.css"
+        type="text/css">
+    <link rel="stylesheet"
+        href="/etc.clientlibs/wcm/foundation/clientlibs/main.lc-6fe5d4427361a4c0ca5a75457e3e4256-lc.min.css"
+        type="text/css">
+    <script
+        src="/libs/cq/gui/components/authoring/editors/clientlibs/internal/messaging.lc-06fd248a4bdcea707f871673e4c845c6-lc.min.js"></script>
+    <script
+        src="/libs/cq/gui/components/authoring/editors/clientlibs/utils.lc-d135043501c45dea17f541b8a8c2a92a-lc.min.js"></script>
+    <script src="/libs/granite/author/deviceemulator/clientlibs.lc-eb6450d10a93d550a7e5d035428c5b52-lc.min.js"></script>
+    <script
+        src="/libs/cq/gui/components/authoring/editors/clientlibs/internal/page.lc-9d79b4b4bb11bd1d55129ee6d29c9c87-lc.min.js"></script>
+    <script src="/etc.clientlibs/wcm/foundation/clientlibs/main.lc-d41d8cd98f00b204e9800998ecf8427e-lc.min.js"></script>
+    <script src="/etc.clientlibs/clientlibs/granite/jquery.lc-f9e8e8c279baf6a1a278042afe4f395a-lc.min.js"></script>
+    <script src="/etc.clientlibs/clientlibs/granite/utils.lc-899004cc02c33efc1f6694b1aee587fd-lc.min.js"></script>
+    <script
+        src="/etc.clientlibs/clientlibs/granite/jquery/granite.lc-011c0fc0d0cf131bdff879743a353002-lc.min.js"></script>
+    <script src="/etc.clientlibs/foundation/clientlibs/jquery.lc-dd9b395c741ce2784096e26619e14910-lc.min.js"></script>
+    <script src="/etc.clientlibs/foundation/clientlibs/shared.lc-e9d9a3990d7779c2e8e3361187f3d36b-lc.min.js"></script>
+
+
+
+
+
+    <!--cq{"decorated":false,"type":"cq/cloudconfig/components/scripttags/header","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/cloudconfig-header","structurePath":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/cloudconfig-header","selectors":null,"servlet":"Script /libs/cq/cloudconfig/components/scripttags/header/header.html","totalTime":2,"selfTime":2}-->
+
+
+    <script
+        src="/etc.clientlibs/newspaper/clientlibs/clientlib-dependencies.lc-d41d8cd98f00b204e9800998ecf8427e-lc.min.js"></script>
+
+
+
+    <link rel="stylesheet"
+        href="/etc.clientlibs/newspaper/clientlibs/clientlib-dependencies.lc-d41d8cd98f00b204e9800998ecf8427e-lc.min.css"
+        type="text/css">
+    <link rel="stylesheet"
+        href="/etc.clientlibs/newspaper/clientlibs/clientlib-site.lc-edeac24274935883bd2c30352f6bf779-lc.min.css"
+        type="text/css">
+
+
+
+
+    <script async
+        src="/etc.clientlibs/core/wcm/components/commons/datalayer/v2/clientlibs/core.wcm.components.commons.datalayer.v2.lc-1e0136bad0acfb78be509234578e44f9-lc.min.js"></script>
+
+
+
+    <script async
+        src="/etc.clientlibs/core/wcm/components/commons/datalayer/acdl/core.wcm.components.commons.datalayer.acdl.lc-bf921af342fd2c40139671dbf0920a1f-lc.min.js"></script>
+
+
+
+
+
 </head>
-<body class="page basicpage">
-<div class="root container responsivegrid">
-    <div class="cmp-container">
-        <header class="experiencefragment">
-            <div class="cmp-experiencefragment">
-                <div class="cmp-container">
-                    <div class="navigation">
-                        <nav class="cmp-navigation" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
-                            <ul class="cmp-navigation__group">
-                                <li class="cmp-navigation__item cmp-navigation__item--level-0 cmp-navigation__item--active">
-                                    <a href="/content/newspaper/us/en.html" title="Newspaper Website" aria-current="page" class="cmp-navigation__item-link">Newspaper Website</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="languagenavigation">
-                        <nav class="cmp-languagenavigation">
-                            <ul class="cmp-languagenavigation__group">
-                                <li class="cmp-languagenavigation__item cmp-languagenavigation__item--langcode-en cmp-languagenavigation__item--level-0">
-                                    <span class="cmp-languagenavigation__item-title" lang="en">United States</span>
-                                    <ul class="cmp-languagenavigation__group">
-                                        <li class="cmp-languagenavigation__item cmp-languagenavigation__item--langcode-en cmp-languagenavigation__item--level-1">
-                                            <a class="cmp-languagenavigation__item-link" href="/content/newspaper/us/en.html" hreflang="en" lang="en" rel="alternate" title="English">English</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="search">
-                        <section class="cmp-search" role="search" data-cmp-is="search" data-cmp-min-length="3" data-cmp-results-size="10">
-                            <form class="cmp-search__form" data-cmp-hook-search="form" method="get" action="/content/newspaper/us/en.searchresults.json/_jcr_content/root/search" autocomplete="off">
-                                <div class="cmp-search__field">
-                                    <i class="cmp-search__icon" data-cmp-hook-search="icon"></i>
-                                    <span class="cmp-search__loading-indicator" data-cmp-hook-search="loadingIndicator"></span>
-                                    <input class="cmp-search__input" data-cmp-hook-search="input" type="text" name="fulltext" placeholder="Search" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-invalid="false"/>
-                                    <button class="cmp-search__clear" data-cmp-hook-search="clear">
-                                        <i class="cmp-search__clear-icon"></i>
-                                    </button>
-                                </div>
-                            </form>
-                            <div class="cmp-search__results" data-cmp-hook-search="results" role="listbox" aria-multiselectable="false"></div>
-                            <script data-cmp-hook-search="itemTemplate" type="x-template">
-                                <a class="cmp-search__item" data-cmp-hook-search="item">
-                                    <span class="cmp-search__item-title" data-cmp-hook-search="itemTitle"></span>
-                                </a>
-                            </script>
-                        </section></div>
-                </div>
-            </div>
-        </header>
-        <main class="container responsivegrid">
-            <div class="cmp-container">
-                <div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
-                    <div class="title aem-GridColumn aem-GridColumn--default--12">
-                        <div class="cmp-title">
-                            <h1 class="cmp-title__text">Welcome to Newspaper Website!</h1>
-                        </div>
-                    </div>
-                    <div class="container responsivegrid aem-GridColumn aem-GridColumn--default--12">
-                        <div class="cmp-container">
-                            <div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
-                                <div class="text aem-GridColumn aem-GridColumn--default--12">
-                                    <div class="cmp-text">
-                                        <p>This is the main welcome page of your web site. A few notes about this site:</p>
-                                        <ul>
-                                            <li>It is built entirely with the Core Components - see the <a href="https://www.adobe.com/go/aem_cmp_library">Component Library</a> to view the components in all their shapes and forms.</li>
-                                            <li>Only the Hello World component has been built custom to illustrate how further components can be built (which also shows how JavaScript is best initialized for components, so that it also works well with the Page Editor).</li>
-                                            <li>The page header and footer are assembled as Experience Fragments, which <a href="https://docs.adobe.com/content/help/en/experience-manager-core-components/using/components/experience-fragment.html#localized-site-structure">can also be localized if needed</a>.<br />
-                                            </li>
-                                            <li>The Style System is used to insert a sematic &lt;header&gt; and &lt;footer&gt; element to the corresponding Experience Fragment components, as well as a &lt;main&gt; element to the container of the page content. This allows to apply some CSS specifically to these sections of the page.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="helloworld aem-GridColumn aem-GridColumn--default--12"><div class="cmp-helloworld" data-cmp-is="helloworld">
-                                    <h2 class="cmp-helloworld__title">Hello World Component</h2>
-                                    <div class="cmp-helloworld__item">
-                                        <p class="cmp-helloworld__item-label">Model message:</p>
-                                        <pre class="cmp-helloworld__item-output" data-cmp-hook-helloworld="model">Hello World!
-Resource type is: newspaper/components/helloworld
-Current page is:  /content/newspaper/us/en
-This is instance: 78f60b4a-a52a-4021-82d5-fb17f5fb95cf
-</pre>
-                                    </div>
-                                </div></div>
+
+<body class="page basicpage" id="page-68bd7552ea" data-cmp-link-accessibility-enabled
+    data-cmp-link-accessibility-text="opens in a new tab" data-cmp-data-layer-enabled>
+    <script>
+        var dataLayerName = '' || 'adobeDataLayer';
+        window[dataLayerName] = window[dataLayerName] || [];
+        window[dataLayerName].push({
+            page: JSON.parse("{\x22page\u002D68bd7552ea\x22:{\x22@type\x22:\x22newspaper\/components\/page\x22,\x22repo:modifyDate\x22:\x222026\u002D04\u002D19T01:46:41Z\x22,\x22dc:title\x22:\x22Bai viet 1\x22,\x22xdm:template\x22:\x22\/conf\/newspaper\/settings\/wcm\/templates\/page\u002Dcontent\x22,\x22xdm:language\x22:\x22en\x22,\x22xdm:tags\x22:[\x22Tech\x22,\x22News\x22,\x22Opinion\x22,\x22Sport\x22,\x22Culture\x22],\x22repo:path\x22:\x22\/content\/newspaper\/language\u002Dmasters\/en\/articles\/2026\/04\/15\/bai\u002Dviet\u002D1.html\x22}}"),
+            event: 'cmp:show',
+            eventInfo: {
+                path: 'page.page\u002D68bd7552ea'
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+    <div class="root container responsivegrid">
+
+
+        <div id="container-ed4b0d3775" class="cmp-container">
+
+
+
+            <div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+
+                <header class="experiencefragment aem-GridColumn aem-GridColumn--default--12">
+                    <div id="experiencefragment-8aa53e198f"
+                        class="cmp-experiencefragment cmp-experiencefragment--header">
+
+
+
+
+
+                        <div id="container-05ac9b49ab" class="cmp-container">
+
+                            <div class="navigation">
+
+
+
+
                             </div>
+                            <div class="languagenavigation">
+
+
+
+
+                            </div>
+                            <div class="search">
+                                <section id="search-8f7ea669ae" class="cmp-search" role="search" data-cmp-is="search"
+                                    data-cmp-min-length="3" data-cmp-results-size="10">
+                                    <div class="cmp_search__info" aria-live="polite" role="status"></div>
+                                    <form class="cmp-search__form" data-cmp-hook-search="form" method="get"
+                                        action="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1.searchresults.json/_jcr_content/root/search"
+                                        autocomplete="off">
+                                        <div class="cmp-search__field">
+                                            <i class="cmp-search__icon" data-cmp-hook-search="icon"></i>
+                                            <span class="cmp-search__loading-indicator"
+                                                data-cmp-hook-search="loadingIndicator"></span>
+                                            <input class="cmp-search__input" data-cmp-hook-search="input" type="text"
+                                                name="fulltext" placeholder="Search" role="combobox"
+                                                aria-autocomplete="list" aria-haspopup="true" aria-invalid="false"
+                                                aria-expanded="false" />
+                                            <button class="cmp-search__clear" data-cmp-hook-search="clear"
+                                                aria-label="Clear">
+                                                <i class="cmp-search__clear-icon"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div class="cmp-search__results" aria-label="Search results"
+                                        data-cmp-hook-search="results" role="listbox" aria-multiselectable="false">
+                                    </div>
+
+                                    <script data-cmp-hook-search="itemTemplate" type="x-template">
+    <a class="cmp-search__item" data-cmp-hook-search="item" role="option" aria-selected="false">
+        <span class="cmp-search__item-title" data-cmp-hook-search="itemTitle"></span>
+    </a>
+</script>
+
+                                </section>
+                            </div>
+
+
                         </div>
+
                     </div>
-                </div>
-            </div>
-        </main>
-        <footer class="experiencefragment">
-            <div class="cmp-experiencefragment">
-                <div class="cmp-container">
-                    <div class="separator">
-                        <div class="cmp-separator">
-                            <hr class="cmp-separator__horizontal-rule"/>
-                        </div></div>
-                    <div class="text">
-                        <div class="cmp-text">
-                            <p>Copyright 2019, Newspaper Website. All rights reserved.</p>
+
+
+                    <!--cq{"decorated":true,"type":"newspaper/components/experiencefragment","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/experiencefragment-header","structurePath":"/conf/newspaper/settings/wcm/templates/page-content/structure/jcr:content/root/experiencefragment-header","selectors":null,"servlet":"Script /apps/core/wcm/components/experiencefragment/v2/experiencefragment/experiencefragment.html","totalTime":18,"selfTime":18}-->
+                </header>
+                <main class="container responsivegrid aem-GridColumn aem-GridColumn--default--12">
+
+
+                    <div id="container-94307eeb04" class="cmp-container">
+
+
+
+                        <div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+
+                            <div class="title aem-GridColumn aem-GridColumn--default--12">
+                                <div data-cmp-data-layer="{&#34;title-6eff447d31&#34;:{&#34;@type&#34;:&#34;newspaper/components/title&#34;,&#34;dc:title&#34;:&#34;Bai viet 1&#34;}}"
+                                    id="title-6eff447d31" class="cmp-title">
+                                    <h1 class="cmp-title__text">Bai viet 1</h1>
+                                </div>
+
+
+
+                                <!--cq{"decorated":true,"type":"newspaper/components/title","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/title","selectors":null,"servlet":"Script /apps/core/wcm/components/title/v3/title/title.html","totalTime":3,"selfTime":3}-->
+                                <cq data-path="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/title"
+                                    data-config="{&quot;path&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/title&quot;,&quot;slingPath&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/title.html&quot;,&quot;dialog&quot;:&quot;/apps/core/wcm/components/title/v3/title/cq:dialog&quot;,&quot;dialogLoadingMode&quot;:&quot;auto&quot;,&quot;dialogLayout&quot;:&quot;auto&quot;,&quot;dialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/title/v3/title/_cq_dialog.html/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/title&quot;,&quot;designDialog&quot;:&quot;/apps/core/wcm/components/title/v3/title/cq:design_dialog&quot;,&quot;designDialogLayout&quot;:&quot;fullscreen&quot;,&quot;designDialogLoadingMode&quot;:&quot;auto&quot;,&quot;designDialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/title/v3/title/_cq_design_dialog.policydesign.editabletemplate.html/conf/newspaper/settings/wcm/policies/newspaper/components/title/policy_641475696923109?dialog=%2Fapps%2Fcore%2Fwcm%2Fcomponents%2Ftitle%2Fv3%2Ftitle%2Fcq%3Adesign_dialog&amp;referrer=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1&amp;policyContentPath=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1%2Fjcr%3Acontent%2Froot%2Fcontainer%2Ftitle&amp;policyContentResourceType=newspaper%2Fcomponents%2Ftitle&amp;policyDirectoryPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Fpolicies%2Fnewspaper%2Fcomponents%2Ftitle%2F&amp;policyMappingPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Ftemplates%2Fpage-content%2Fpolicies%2Fjcr%3Acontent%2Froot%2Fcontainer%2Ftitle&amp;policyMappingResourceType=wcm%2Fcore%2Fcomponents%2Fpolicies%2Fmapping&amp;policyName=policy_641475696923109&amp;policyRelativePath=newspaper%2Fcomponents%2Ftitle%2Fpolicy_641475696923109&amp;resourceType=wcm%2Fcore%2Fcomponents%2Fpolicy%2Fpolicy&quot;,&quot;designDialogClassic&quot;:&quot;/apps/core/wcm/components/title/v3/title/cq:design_dialog&quot;,&quot;hasPolicyMapping&quot;:true,&quot;type&quot;:&quot;newspaper/components/title&quot;,&quot;isResponsiveGrid&quot;:false,&quot;policyPath&quot;:&quot;root/container/title&quot;,&quot;csp&quot;:&quot;page|basicpage/root|container|responsivegrid/container|responsivegrid/title&quot;,&quot;editConfig&quot;:{&quot;inplaceEditingConfig&quot;:{&quot;active&quot;:true,&quot;editorType&quot;:&quot;title&quot;,&quot;configPath&quot;:&quot;/apps/core/wcm/components/title/v3/title/cq:editConfig/cq:inplaceEditing/inplaceEditingConfig&quot;},&quot;structure&quot;:true},&quot;ipeConfig&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;titleTag&quot;:[&quot;h1&quot;,&quot;h2&quot;,&quot;h3&quot;,&quot;h4&quot;,&quot;h5&quot;,&quot;h6&quot;],&quot;inplaceEditingConfig&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;titleTag&quot;:[&quot;h1&quot;,&quot;h2&quot;,&quot;h3&quot;,&quot;h4&quot;,&quot;h5&quot;,&quot;h6&quot;]}}}">
+                                </cq>
+                            </div>
+                            <div class="container responsivegrid aem-GridColumn aem-GridColumn--default--12">
+
+
+                                <div id="container-2208ffee0e" class="cmp-container">
+
+
+
+                                    <div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+
+                                        <div class="text aem-GridColumn aem-GridColumn--default--12">
+                                            <div data-cmp-data-layer="{&#34;text-8bfef8acbb&#34;:{&#34;@type&#34;:&#34;newspaper/components/text&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-15T15:18:25Z&#34;,&#34;xdm:text&#34;:&#34;&lt;p>Nó đã hoạt động&lt;/p>\r\n&#34;}}"
+                                                id="text-8bfef8acbb" class="cmp-text">
+                                                <p>Nó đã hoạt động</p>
+
+                                            </div>
+
+
+
+                                            <!--cq{"decorated":true,"type":"newspaper/components/text","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/text","selectors":null,"servlet":"Script /apps/core/wcm/components/text/v2/text/text.html","totalTime":2,"selfTime":2}-->
+                                            <cq data-path="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/text"
+                                                data-config="{&quot;path&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/text&quot;,&quot;slingPath&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/text.html&quot;,&quot;dialog&quot;:&quot;/apps/core/wcm/components/text/v2/text/cq:dialog&quot;,&quot;dialogLoadingMode&quot;:&quot;auto&quot;,&quot;dialogLayout&quot;:&quot;auto&quot;,&quot;dialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/text/v2/text/_cq_dialog.html/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/text&quot;,&quot;designDialog&quot;:&quot;/apps/core/wcm/components/text/v2/text/cq:design_dialog&quot;,&quot;designDialogLayout&quot;:&quot;fullscreen&quot;,&quot;designDialogLoadingMode&quot;:&quot;auto&quot;,&quot;designDialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/text/v2/text/_cq_design_dialog.policydesign.editabletemplate.html/conf/newspaper/settings/wcm/policies/newspaper/components/text/policy_641562756958017?dialog=%2Fapps%2Fcore%2Fwcm%2Fcomponents%2Ftext%2Fv2%2Ftext%2Fcq%3Adesign_dialog&amp;referrer=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1&amp;policyContentPath=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1%2Fjcr%3Acontent%2Froot%2Fcontainer%2Fcontainer%2Ftext&amp;policyContentResourceType=newspaper%2Fcomponents%2Ftext&amp;policyDirectoryPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Fpolicies%2Fnewspaper%2Fcomponents%2Ftext%2F&amp;policyMappingPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Ftemplates%2Fpage-content%2Fpolicies%2Fjcr%3Acontent%2Froot%2Fcontainer%2Fcontainer%2Fnewspaper%2Fcomponents%2Ftext&amp;policyMappingResourceType=wcm%2Fcore%2Fcomponents%2Fpolicies%2Fmapping&amp;policyName=policy_641562756958017&amp;policyRelativePath=newspaper%2Fcomponents%2Ftext%2Fpolicy_641562756958017&amp;resourceType=wcm%2Fcore%2Fcomponents%2Fpolicy%2Fpolicy&quot;,&quot;designDialogClassic&quot;:&quot;/apps/core/wcm/components/text/v2/text/cq:design_dialog&quot;,&quot;hasPolicyMapping&quot;:true,&quot;type&quot;:&quot;newspaper/components/text&quot;,&quot;isResponsiveGrid&quot;:false,&quot;policyPath&quot;:&quot;root/container/container/newspaper/components/text&quot;,&quot;csp&quot;:&quot;page|basicpage/root|container|responsivegrid/container|responsivegrid/container|responsivegrid/text&quot;,&quot;editConfig&quot;:{&quot;inplaceEditingConfig&quot;:{&quot;active&quot;:true,&quot;editorType&quot;:&quot;text&quot;,&quot;configPath&quot;:&quot;/apps/newspaper/components/text/cq:editConfig/cq:inplaceEditing/inplaceEditingConfig&quot;}},&quot;ipeConfig&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;rtePlugins&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;edit&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;features&quot;:&quot;-&quot;},&quot;findreplace&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;features&quot;:&quot;-&quot;},&quot;format&quot;:{&quot;features&quot;:&quot;bold,italic&quot;,&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;},&quot;image&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;features&quot;:&quot;-&quot;},&quot;justify&quot;:{&quot;features&quot;:&quot;-&quot;,&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;},&quot;links&quot;:{&quot;features&quot;:&quot;modifylink,unlink&quot;,&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;},&quot;lists&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;features&quot;:&quot;*&quot;},&quot;misctools&quot;:{&quot;features&quot;:&quot;-&quot;,&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;specialCharsConfig&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;chars&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;item0&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;entity&quot;:&quot;&amp;copy;&quot;,&quot;name&quot;:&quot;copyright&quot;},&quot;item1&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;entity&quot;:&quot;&amp;euro;&quot;,&quot;name&quot;:&quot;euro&quot;},&quot;item2&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;entity&quot;:&quot;&amp;reg;&quot;,&quot;name&quot;:&quot;registered&quot;},&quot;item3&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;entity&quot;:&quot;&amp;trade;&quot;,&quot;name&quot;:&quot;trademark&quot;}}}},&quot;paraformat&quot;:{&quot;features&quot;:&quot;*&quot;,&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;formats&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;item0&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;description&quot;:&quot;Paragraph&quot;,&quot;tag&quot;:&quot;p&quot;},&quot;item1&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;description&quot;:&quot;Quote&quot;,&quot;tag&quot;:&quot;blockquote&quot;},&quot;item2&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;description&quot;:&quot;Preformatted&quot;,&quot;tag&quot;:&quot;pre&quot;}}},&quot;spellcheck&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;features&quot;:&quot;-&quot;},&quot;subsuperscript&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;features&quot;:&quot;-&quot;},&quot;table&quot;:{&quot;features&quot;:&quot;-&quot;,&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;hiddenHeaderConfig&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;hiddenHeaderClassName&quot;:&quot;cq-wcm-foundation-aria-visuallyhidden&quot;}},&quot;tracklinks&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;features&quot;:&quot;*&quot;},&quot;undo&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;features&quot;:&quot;-&quot;}},&quot;uiSettings&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;cui&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;inline&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;toolbar&quot;:[&quot;#format&quot;,&quot;#justify&quot;,&quot;#lists&quot;,&quot;links#modifylink&quot;,&quot;links#unlink&quot;,&quot;#paraformat&quot;,&quot;fullscreen#start&quot;,&quot;control#close&quot;,&quot;control#save&quot;],&quot;popovers&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;format&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;ref&quot;:&quot;format&quot;,&quot;items&quot;:[&quot;format#bold&quot;,&quot;format#italic&quot;,&quot;format#underline&quot;]},&quot;justify&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;ref&quot;:&quot;justify&quot;,&quot;items&quot;:[&quot;justify#justifyleft&quot;,&quot;justify#justifycenter&quot;,&quot;justify#justifyright&quot;,&quot;justify#justifyjustify&quot;]},&quot;lists&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;ref&quot;:&quot;lists&quot;,&quot;items&quot;:[&quot;lists#unordered&quot;,&quot;lists#ordered&quot;,&quot;lists#outdent&quot;,&quot;lists#indent&quot;]},&quot;paraformat&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;ref&quot;:&quot;paraformat&quot;,&quot;items&quot;:&quot;paraformat:getFormats:paraformat-pulldown&quot;}}}}}}}">
+                                            </cq>
+                                        </div>
+                                        <div class="breadcrumb aem-GridColumn aem-GridColumn--default--12">
+                                            <nav id="breadcrumb-26bc933b2f" class="cmp-breadcrumb"
+                                                aria-label="Breadcrumb"
+                                                data-cmp-data-layer="{&#34;breadcrumb-26bc933b2f&#34;:{&#34;@type&#34;:&#34;newspaper/components/breadcrumb&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-18T10:35:02Z&#34;}}"
+                                                role="navigation">
+                                                <ol class="cmp-breadcrumb__list" itemscope
+                                                    itemtype="http://schema.org/BreadcrumbList">
+
+                                                    <li class="cmp-breadcrumb__item"
+                                                        data-cmp-data-layer="{&#34;breadcrumb-26bc933b2f-item-58e85d4b16&#34;:{&#34;@type&#34;:&#34;newspaper/components/breadcrumb/item&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-12T11:14:18Z&#34;,&#34;dc:title&#34;:&#34;Language Masters&#34;,&#34;xdm:linkURL&#34;:&#34;/content/newspaper/language-masters.html&#34;}}"
+                                                        itemprop="itemListElement" itemscope
+                                                        itemtype="http://schema.org/ListItem">
+                                                        <a class="cmp-breadcrumb__item-link" itemprop="item"
+                                                            data-cmp-clickable
+                                                            href="/content/newspaper/language-masters.html">
+                                                            <span itemprop="name">Language Masters</span>
+                                                        </a>
+                                                        <meta itemprop="position" content="1" />
+                                                    </li>
+
+
+                                                    <li class="cmp-breadcrumb__item"
+                                                        data-cmp-data-layer="{&#34;breadcrumb-26bc933b2f-item-93a8ff7a0c&#34;:{&#34;@type&#34;:&#34;newspaper/components/breadcrumb/item&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-15T15:18:23Z&#34;,&#34;dc:title&#34;:&#34;English&#34;,&#34;xdm:linkURL&#34;:&#34;/content/newspaper/language-masters/en.html&#34;}}"
+                                                        itemprop="itemListElement" itemscope
+                                                        itemtype="http://schema.org/ListItem">
+                                                        <a class="cmp-breadcrumb__item-link" itemprop="item"
+                                                            data-cmp-clickable
+                                                            href="/content/newspaper/language-masters/en.html">
+                                                            <span itemprop="name">English</span>
+                                                        </a>
+                                                        <meta itemprop="position" content="2" />
+                                                    </li>
+
+
+                                                    <li class="cmp-breadcrumb__item"
+                                                        data-cmp-data-layer="{&#34;breadcrumb-26bc933b2f-item-2de55a112f&#34;:{&#34;@type&#34;:&#34;newspaper/components/breadcrumb/item&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-15T15:18:25Z&#34;,&#34;dc:title&#34;:&#34;Articles&#34;,&#34;xdm:linkURL&#34;:&#34;/content/newspaper/language-masters/en/articles.html&#34;}}"
+                                                        itemprop="itemListElement" itemscope
+                                                        itemtype="http://schema.org/ListItem">
+                                                        <a class="cmp-breadcrumb__item-link" itemprop="item"
+                                                            data-cmp-clickable
+                                                            href="/content/newspaper/language-masters/en/articles.html">
+                                                            <span itemprop="name">Articles</span>
+                                                        </a>
+                                                        <meta itemprop="position" content="3" />
+                                                    </li>
+
+
+                                                    <li class="cmp-breadcrumb__item"
+                                                        data-cmp-data-layer="{&#34;breadcrumb-26bc933b2f-item-1c2ec57388&#34;:{&#34;@type&#34;:&#34;newspaper/components/breadcrumb/item&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-15T15:18:25Z&#34;,&#34;dc:title&#34;:&#34;2026&#34;,&#34;xdm:linkURL&#34;:&#34;/content/newspaper/language-masters/en/articles/2026.html&#34;}}"
+                                                        itemprop="itemListElement" itemscope
+                                                        itemtype="http://schema.org/ListItem">
+                                                        <a class="cmp-breadcrumb__item-link" itemprop="item"
+                                                            data-cmp-clickable
+                                                            href="/content/newspaper/language-masters/en/articles/2026.html">
+                                                            <span itemprop="name">2026</span>
+                                                        </a>
+                                                        <meta itemprop="position" content="4" />
+                                                    </li>
+
+
+                                                    <li class="cmp-breadcrumb__item"
+                                                        data-cmp-data-layer="{&#34;breadcrumb-26bc933b2f-item-c009a63e31&#34;:{&#34;@type&#34;:&#34;newspaper/components/breadcrumb/item&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-15T15:18:25Z&#34;,&#34;dc:title&#34;:&#34;04&#34;,&#34;xdm:linkURL&#34;:&#34;/content/newspaper/language-masters/en/articles/2026/04.html&#34;}}"
+                                                        itemprop="itemListElement" itemscope
+                                                        itemtype="http://schema.org/ListItem">
+                                                        <a class="cmp-breadcrumb__item-link" itemprop="item"
+                                                            data-cmp-clickable
+                                                            href="/content/newspaper/language-masters/en/articles/2026/04.html">
+                                                            <span itemprop="name">04</span>
+                                                        </a>
+                                                        <meta itemprop="position" content="5" />
+                                                    </li>
+
+
+                                                    <li class="cmp-breadcrumb__item"
+                                                        data-cmp-data-layer="{&#34;breadcrumb-26bc933b2f-item-fa22ed2164&#34;:{&#34;@type&#34;:&#34;newspaper/components/breadcrumb/item&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-15T15:18:25Z&#34;,&#34;dc:title&#34;:&#34;15&#34;,&#34;xdm:linkURL&#34;:&#34;/content/newspaper/language-masters/en/articles/2026/04/15.html&#34;}}"
+                                                        itemprop="itemListElement" itemscope
+                                                        itemtype="http://schema.org/ListItem">
+                                                        <a class="cmp-breadcrumb__item-link" itemprop="item"
+                                                            data-cmp-clickable
+                                                            href="/content/newspaper/language-masters/en/articles/2026/04/15.html">
+                                                            <span itemprop="name">15</span>
+                                                        </a>
+                                                        <meta itemprop="position" content="6" />
+                                                    </li>
+
+
+                                                    <li class="cmp-breadcrumb__item cmp-breadcrumb__item--active"
+                                                        aria-current="page"
+                                                        data-cmp-data-layer="{&#34;breadcrumb-26bc933b2f-item-68bd7552ea&#34;:{&#34;@type&#34;:&#34;newspaper/components/breadcrumb/item&#34;,&#34;repo:modifyDate&#34;:&#34;2026-04-15T15:18:25Z&#34;,&#34;dc:title&#34;:&#34;Bai viet 1&#34;,&#34;xdm:linkURL&#34;:&#34;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1.html&#34;}}"
+                                                        itemprop="itemListElement" itemscope
+                                                        itemtype="http://schema.org/ListItem">
+
+                                                        <span itemprop="name">Bai viet 1</span>
+
+                                                        <meta itemprop="position" content="7" />
+                                                    </li>
+                                                </ol>
+                                            </nav>
+
+
+
+                                            <!--cq{"decorated":true,"type":"newspaper/components/breadcrumb","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/breadcrumb","selectors":null,"servlet":"Script /apps/core/wcm/components/breadcrumb/v3/breadcrumb/breadcrumb.html","totalTime":22,"selfTime":22}-->
+                                            <cq data-path="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/breadcrumb"
+                                                data-config="{&quot;path&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/breadcrumb&quot;,&quot;slingPath&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/breadcrumb.html&quot;,&quot;dialog&quot;:&quot;/apps/core/wcm/components/breadcrumb/v3/breadcrumb/cq:dialog&quot;,&quot;dialogLoadingMode&quot;:&quot;auto&quot;,&quot;dialogLayout&quot;:&quot;auto&quot;,&quot;dialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/breadcrumb/v3/breadcrumb/_cq_dialog.html/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/breadcrumb&quot;,&quot;designDialog&quot;:&quot;/apps/core/wcm/components/breadcrumb/v3/breadcrumb/cq:design_dialog&quot;,&quot;designDialogLayout&quot;:&quot;fullscreen&quot;,&quot;designDialogLoadingMode&quot;:&quot;auto&quot;,&quot;designDialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/breadcrumb/v3/breadcrumb/_cq_design_dialog.policydesign.editabletemplate.html/conf/newspaper/settings/wcm/policies/newspaper/components/breadcrumb/policy_1602842396058600?dialog=%2Fapps%2Fcore%2Fwcm%2Fcomponents%2Fbreadcrumb%2Fv3%2Fbreadcrumb%2Fcq%3Adesign_dialog&amp;referrer=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1&amp;policyContentPath=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1%2Fjcr%3Acontent%2Froot%2Fcontainer%2Fcontainer%2Fbreadcrumb&amp;policyContentResourceType=newspaper%2Fcomponents%2Fbreadcrumb&amp;policyDirectoryPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Fpolicies%2Fnewspaper%2Fcomponents%2Fbreadcrumb%2F&amp;policyMappingPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Ftemplates%2Fpage-content%2Fpolicies%2Fjcr%3Acontent%2Froot%2Fcontainer%2Fcontainer%2Fnewspaper%2Fcomponents%2Fbreadcrumb&amp;policyMappingResourceType=wcm%2Fcore%2Fcomponents%2Fpolicies%2Fmapping&amp;policyName=policy_1602842396058600&amp;policyRelativePath=newspaper%2Fcomponents%2Fbreadcrumb%2Fpolicy_1602842396058600&amp;resourceType=wcm%2Fcore%2Fcomponents%2Fpolicy%2Fpolicy&quot;,&quot;designDialogClassic&quot;:&quot;/apps/core/wcm/components/breadcrumb/v3/breadcrumb/cq:design_dialog&quot;,&quot;type&quot;:&quot;newspaper/components/breadcrumb&quot;,&quot;isResponsiveGrid&quot;:false,&quot;policyPath&quot;:&quot;root/container/container/newspaper/components/breadcrumb&quot;,&quot;csp&quot;:&quot;page|basicpage/root|container|responsivegrid/container|responsivegrid/container|responsivegrid/breadcrumb&quot;}">
+                                            </cq>
+                                        </div>
+                                        <!--cq{"decorated":true,"type":"newspaper/components/structure/breadcrumb","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/breadcrumb_1233173546","selectors":null,"servlet":"DefaultGetServlet","totalTime":0,"selfTime":0}-->
+                                        <div
+                                            class="articlebreadcrumb breadcrumb aem-GridColumn aem-GridColumn--default--12">
+
+                                            <ul class="cmp-breadcrumb">
+                                                <li class="cmp-breadcrumb__item">
+                                                    <a href="/content/newspaper/language-masters/en.html"
+                                                        class="cmp-breadcrumb__item-link">
+                                                        English
+                                                    </a>
+
+                                                </li>
+
+                                                <li class="cmp-breadcrumb__item">
+                                                    <a href="/content/newspaper/language-masters/en/culture.html"
+                                                        class="cmp-breadcrumb__item-link">
+                                                        Culture
+                                                    </a>
+
+                                                </li>
+
+                                                <li class="cmp-breadcrumb__item">
+
+                                                    <span class="cmp-breadcrumb__item-label">
+                                                        Bai viet 1
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <!--cq{"decorated":true,"type":"newspaper/components/structure/articlebreadcrumb","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/articlebreadcrumb","selectors":null,"servlet":"Script /apps/newspaper/components/structure/articlebreadcrumb/articlebreadcrumb.html","totalTime":8,"selfTime":8}-->
+                                            <cq data-path="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/articlebreadcrumb"
+                                                data-config="{&quot;path&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/articlebreadcrumb&quot;,&quot;slingPath&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/articlebreadcrumb.html&quot;,&quot;dialog&quot;:&quot;/apps/newspaper/components/structure/articlebreadcrumb/cq:dialog&quot;,&quot;dialogLoadingMode&quot;:&quot;auto&quot;,&quot;dialogLayout&quot;:&quot;auto&quot;,&quot;dialogSrc&quot;:&quot;/mnt/override/apps/newspaper/components/structure/articlebreadcrumb/_cq_dialog.html/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/articlebreadcrumb&quot;,&quot;designDialog&quot;:&quot;/apps/core/wcm/components/breadcrumb/v2/breadcrumb/cq:design_dialog&quot;,&quot;designDialogLayout&quot;:&quot;fullscreen&quot;,&quot;designDialogLoadingMode&quot;:&quot;auto&quot;,&quot;designDialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/breadcrumb/v2/breadcrumb/_cq_design_dialog.policydesign.editabletemplate.html/conf/newspaper/settings/wcm/policies/newspaper/components/structure/articlebreadcrumb/policy_1602842407473000?dialog=%2Fapps%2Fcore%2Fwcm%2Fcomponents%2Fbreadcrumb%2Fv2%2Fbreadcrumb%2Fcq%3Adesign_dialog&amp;referrer=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1&amp;policyContentPath=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1%2Fjcr%3Acontent%2Froot%2Fcontainer%2Fcontainer%2Farticlebreadcrumb&amp;policyContentResourceType=newspaper%2Fcomponents%2Fstructure%2Farticlebreadcrumb&amp;policyDirectoryPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Fpolicies%2Fnewspaper%2Fcomponents%2Fstructure%2Farticlebreadcrumb%2F&amp;policyMappingPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Ftemplates%2Fpage-content%2Fpolicies%2Fjcr%3Acontent%2Froot%2Fcontainer%2Fcontainer%2Fnewspaper%2Fcomponents%2Fstructure%2Farticlebreadcrumb&amp;policyMappingResourceType=wcm%2Fcore%2Fcomponents%2Fpolicies%2Fmapping&amp;policyName=policy_1602842407473000&amp;policyRelativePath=newspaper%2Fcomponents%2Fstructure%2Farticlebreadcrumb%2Fpolicy_1602842407473000&amp;resourceType=wcm%2Fcore%2Fcomponents%2Fpolicy%2Fpolicy&quot;,&quot;designDialogClassic&quot;:&quot;/apps/core/wcm/components/breadcrumb/v2/breadcrumb/cq:design_dialog&quot;,&quot;type&quot;:&quot;newspaper/components/structure/articlebreadcrumb&quot;,&quot;isResponsiveGrid&quot;:false,&quot;policyPath&quot;:&quot;root/container/container/newspaper/components/structure/articlebreadcrumb&quot;,&quot;csp&quot;:&quot;page|basicpage/root|container|responsivegrid/container|responsivegrid/container|responsivegrid/articlebreadcrumb|breadcrumb&quot;}">
+                                            </cq>
+                                        </div>
+                                        <div class="tagslist aem-GridColumn aem-GridColumn--default--12">
+
+                                            <div class="cmp-tagslist">
+                                                <ul class="cmp-tagslist__list">
+                                                    <li class="cmp-tagslist__item">
+                                                        <span class="cmp-tagslist__item-title">Tech</span>
+                                                    </li>
+                                                    <li class="cmp-tagslist__item">
+                                                        <span class="cmp-tagslist__item-title">News</span>
+                                                    </li>
+                                                    <li class="cmp-tagslist__item">
+                                                        <span class="cmp-tagslist__item-title">Opinion</span>
+                                                    </li>
+                                                    <li class="cmp-tagslist__item">
+                                                        <span class="cmp-tagslist__item-title">Sport</span>
+                                                    </li>
+                                                    <li class="cmp-tagslist__item">
+                                                        <span class="cmp-tagslist__item-title">Culture</span>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+
+
+
+
+
+                                            <!--cq{"decorated":true,"type":"newspaper/components/content/tagslist","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/tagslist","selectors":null,"servlet":"Script /apps/newspaper/components/content/tagslist/tagslist.html","totalTime":1,"selfTime":1}-->
+                                            <cq data-path="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/tagslist"
+                                                data-config="{&quot;path&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/tagslist&quot;,&quot;slingPath&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/tagslist.html&quot;,&quot;dialog&quot;:&quot;/apps/newspaper/components/content/tagslist/cq:dialog&quot;,&quot;dialogLoadingMode&quot;:&quot;auto&quot;,&quot;dialogLayout&quot;:&quot;auto&quot;,&quot;dialogSrc&quot;:&quot;/mnt/override/apps/newspaper/components/content/tagslist/_cq_dialog.html/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/tagslist&quot;,&quot;type&quot;:&quot;newspaper/components/content/tagslist&quot;,&quot;isResponsiveGrid&quot;:false,&quot;policyPath&quot;:&quot;root/container/container/newspaper/components/content/tagslist&quot;,&quot;csp&quot;:&quot;page|basicpage/root|container|responsivegrid/container|responsivegrid/container|responsivegrid/tagslist&quot;,&quot;editConfig&quot;:{&quot;listeners&quot;:{&quot;aftermove&quot;:&quot;REFRESH_PAGE&quot;,&quot;afterdelete&quot;:&quot;REFRESH_PAGE&quot;,&quot;afteredit&quot;:&quot;REFRESH_PAGE&quot;,&quot;afterinsert&quot;:&quot;REFRESH_PAGE&quot;}}}">
+                                            </cq>
+                                        </div>
+
+                                        <div class="new newpar section aem-Grid-newComponent">
+
+                                            <!--cq{"decorated":true,"type":"wcm/foundation/components/responsivegrid/new","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/*","selectors":null,"servlet":"Script /libs/wcm/foundation/components/parsys/newpar/newpar.html","totalTime":2,"selfTime":2}-->
+                                            <cq data-path="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/*"
+                                                data-config="{&quot;path&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/*&quot;,&quot;slingPath&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/*.html&quot;,&quot;type&quot;:&quot;wcm/foundation/components/responsivegrid/new&quot;,&quot;isResponsiveGrid&quot;:false,&quot;csp&quot;:&quot;page|basicpage/root|container|responsivegrid/container|responsivegrid/container|responsivegrid/new|newpar&quot;,&quot;editConfig&quot;:{&quot;actions&quot;:[&quot;CQ.wcm.EditBase.INSERT&quot;],&quot;disableTargeting&quot;:true}}">
+                                            </cq>
+                                        </div>
+
+                                    </div>
+                                    <!--cq{"decorated":true,"type":"wcm/foundation/components/responsivegrid","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container/no_resource_0","selectors":null,"servlet":"Script /libs/wcm/foundation/components/responsivegrid/responsivegrid.html","totalTime":55,"selfTime":20}-->
+
+                                </div>
+
+
+                                <!--cq{"decorated":true,"type":"newspaper/components/container","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container","selectors":null,"servlet":"Script /apps/core/wcm/components/container/v1/container/container.html","totalTime":58,"selfTime":3}-->
+                                <cq data-path="/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container"
+                                    data-config="{&quot;path&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container&quot;,&quot;slingPath&quot;:&quot;/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container.html&quot;,&quot;dialog&quot;:&quot;/apps/core/wcm/components/container/v1/container/cq:dialog&quot;,&quot;dialogLoadingMode&quot;:&quot;auto&quot;,&quot;dialogLayout&quot;:&quot;auto&quot;,&quot;dialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/container/v1/container/_cq_dialog.html/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/container&quot;,&quot;designDialog&quot;:&quot;/apps/core/wcm/components/container/v1/container/cq:design_dialog&quot;,&quot;designDialogLayout&quot;:&quot;fullscreen&quot;,&quot;designDialogLoadingMode&quot;:&quot;auto&quot;,&quot;designDialogSrc&quot;:&quot;/mnt/override/apps/core/wcm/components/container/v1/container/_cq_design_dialog.policydesign.editabletemplate.html/conf/newspaper/settings/wcm/policies/newspaper/components/container/policy_1574695586800?dialog=%2Fapps%2Fcore%2Fwcm%2Fcomponents%2Fcontainer%2Fv1%2Fcontainer%2Fcq%3Adesign_dialog&amp;referrer=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1&amp;policyContentPath=%2Fcontent%2Fnewspaper%2Flanguage-masters%2Fen%2Farticles%2F2026%2F04%2F15%2Fbai-viet-1%2Fjcr%3Acontent%2Froot%2Fcontainer%2Fcontainer&amp;policyContentResourceType=newspaper%2Fcomponents%2Fcontainer&amp;policyDirectoryPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Fpolicies%2Fnewspaper%2Fcomponents%2Fcontainer%2F&amp;policyMappingPath=%2Fconf%2Fnewspaper%2Fsettings%2Fwcm%2Ftemplates%2Fpage-content%2Fpolicies%2Fjcr%3Acontent%2Froot%2Fcontainer%2Fcontainer&amp;policyMappingResourceType=wcm%2Fcore%2Fcomponents%2Fpolicies%2Fmapping&amp;policyName=policy_1574695586800&amp;policyRelativePath=newspaper%2Fcomponents%2Fcontainer%2Fpolicy_1574695586800&amp;resourceType=wcm%2Fcore%2Fcomponents%2Fpolicy%2Fpolicy&quot;,&quot;designDialogClassic&quot;:&quot;/apps/core/wcm/components/container/v1/container/cq:design_dialog&quot;,&quot;hasPolicyMapping&quot;:true,&quot;type&quot;:&quot;newspaper/components/container&quot;,&quot;isResponsiveGrid&quot;:true,&quot;policyPath&quot;:&quot;root/container/container&quot;,&quot;csp&quot;:&quot;page|basicpage/root|container|responsivegrid/container|responsivegrid/container|responsivegrid&quot;,&quot;isContainer&quot;:true,&quot;editConfig&quot;:{&quot;listeners&quot;:{&quot;afterchildinsert&quot;:&quot;function(editable){Granite.author.responsive.EditableActions.REFRESH.execute(editable)}&quot;},&quot;structure&quot;:true},&quot;ipeConfig&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;jcr:title&quot;:&quot;Page Content&quot;,&quot;jcr:lastModifiedBy&quot;:&quot;admin&quot;,&quot;layoutDisabled&quot;:&quot;false&quot;,&quot;components&quot;:[&quot;/libs/dam/cfm/components/contentfragment&quot;,&quot;group:Newspaper Website - Content&quot;,&quot;/apps/newspaper/components/form/container&quot;,&quot;group:Newspaper Website - Structure&quot;],&quot;jcr:description&quot;:&quot;Allows the page components and defines the component mapping (this configures what components should be automatically created when authors drop assets from the content finder to the page editor).&quot;,&quot;jcr:lastModified&quot;:&quot;java.util.GregorianCalendar[time=1776515719244,areFieldsSet=true,areAllFieldsSet=true,lenient=false,zone=sun.util.calendar.ZoneInfo[id=\&quot;GMT+07:00\&quot;,offset=25200000,dstSavings=0,useDaylight=false,transitions=0,lastRule=null],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=1,YEAR=2026,MONTH=3,WEEK_OF_YEAR=16,WEEK_OF_MONTH=3,DAY_OF_MONTH=18,DAY_OF_YEAR=108,DAY_OF_WEEK=7,DAY_OF_WEEK_IN_MONTH=3,AM_PM=1,HOUR=7,HOUR_OF_DAY=19,MINUTE=35,SECOND=19,MILLISECOND=244,ZONE_OFFSET=25200000,DST_OFFSET=0]&quot;,&quot;sling:resourceType&quot;:&quot;wcm/core/components/policy/policy&quot;,&quot;jcr:content&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;},&quot;cq:authoring&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;assetToComponentMapping&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;mapping_1575030255082&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;resourceType&quot;:&quot;newspaper/components/image&quot;,&quot;assetMimetype&quot;:&quot;image/*&quot;,&quot;droptarget&quot;:&quot;image&quot;,&quot;assetGroup&quot;:&quot;media&quot;},&quot;mapping_1575030260142&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;resourceType&quot;:&quot;newspaper/components/experiencefragment&quot;,&quot;assetMimetype&quot;:&quot;text/html&quot;,&quot;droptarget&quot;:&quot;experiencefragment&quot;,&quot;assetGroup&quot;:&quot;content&quot;},&quot;mapping_1575030269139&quot;:{&quot;jcr:primaryType&quot;:&quot;nt:unstructured&quot;,&quot;resourceType&quot;:&quot;newspaper/components/contentfragment&quot;,&quot;assetMimetype&quot;:[&quot;text/html&quot;,&quot;application/vnd.adobe.contentfragment&quot;],&quot;droptarget&quot;:&quot;contentfragment&quot;,&quot;assetGroup&quot;:&quot;media&quot;}}}}}">
+                                </cq>
+                            </div>
+
+                            <div class="new newpar section aem-Grid-newComponent">
+
+                                <!--cq{"decorated":true,"type":"wcm/foundation/components/responsivegrid/new","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/*","structurePath":"/conf/newspaper/settings/wcm/templates/page-content/structure/jcr:content/root/container/*","selectors":null,"servlet":"Script /libs/wcm/foundation/components/parsys/newpar/newpar.html","totalTime":3,"selfTime":3}-->
+                            </div>
+
                         </div>
+                        <!--cq{"decorated":true,"type":"wcm/foundation/components/responsivegrid","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container/no_resource_0","structurePath":"/conf/newspaper/settings/wcm/templates/page-content/structure/jcr:content/root/container/no_resource_0","selectors":null,"servlet":"Script /libs/wcm/foundation/components/responsivegrid/responsivegrid.html","totalTime":75,"selfTime":11}-->
+
                     </div>
+
+
+                    <!--cq{"decorated":true,"type":"newspaper/components/container","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/container","structurePath":"/conf/newspaper/settings/wcm/templates/page-content/structure/jcr:content/root/container","selectors":null,"servlet":"Script /apps/core/wcm/components/container/v1/container/container.html","totalTime":77,"selfTime":2}-->
+                </main>
+                <footer class="experiencefragment aem-GridColumn aem-GridColumn--default--12">
+                    <div id="experiencefragment-e96aedc5d0"
+                        class="cmp-experiencefragment cmp-experiencefragment--footer">
+
+
+
+                        <div id="container-57ed39b987" class="cmp-container">
+
+
+
+                            <div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+
+                                <div class="separator aem-GridColumn aem-GridColumn--default--12">
+                                    <div id="separator-394c8b4bc4" class="cmp-separator">
+                                        <hr class="cmp-separator__horizontal-rule" />
+                                    </div>
+                                </div>
+                                <div class="text aem-GridColumn aem-GridColumn--default--12">
+                                    <div data-cmp-data-layer="{&#34;text-aea6f838c7&#34;:{&#34;@type&#34;:&#34;newspaper/components/text&#34;,&#34;xdm:text&#34;:&#34;&lt;p>Copyright 2026, Newspaper Website.&amp;nbsp;All rights reserved.&lt;/p>\r\n&lt;p>345 Park Avenue,&amp;nbsp;San Jose, CA 95110-2704, USA&lt;/p>\r\n&#34;}}"
+                                        id="text-aea6f838c7" class="cmp-text">
+                                        <p>Copyright 2026, Newspaper Website. All rights reserved.</p>
+                                        <p>345 Park Avenue, San Jose, CA 95110-2704, USA</p>
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!--cq{"decorated":true,"type":"newspaper/components/experiencefragment","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/experiencefragment-footer","structurePath":"/conf/newspaper/settings/wcm/templates/page-content/structure/jcr:content/root/experiencefragment-footer","selectors":null,"servlet":"Script /apps/core/wcm/components/experiencefragment/v2/experiencefragment/experiencefragment.html","totalTime":16,"selfTime":16}-->
+                </footer>
+
+                <div class="new newpar section aem-Grid-newComponent">
+
+                    <!--cq{"decorated":true,"type":"wcm/foundation/components/responsivegrid/new","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/*","structurePath":"/conf/newspaper/settings/wcm/templates/page-content/structure/jcr:content/root/*","selectors":null,"servlet":"Script /libs/wcm/foundation/components/parsys/newpar/newpar.html","totalTime":2,"selfTime":2}-->
                 </div>
+
             </div>
-        </footer>
+            <!--cq{"decorated":true,"type":"wcm/foundation/components/responsivegrid","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root/no_resource_0","structurePath":"/conf/newspaper/settings/wcm/templates/page-content/structure/jcr:content/root/no_resource_0","selectors":null,"servlet":"Script /libs/wcm/foundation/components/responsivegrid/responsivegrid.html","totalTime":117,"selfTime":4}-->
+
+        </div>
+
+
+        <!--cq{"decorated":true,"type":"newspaper/components/container","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/root","structurePath":"/conf/newspaper/settings/wcm/templates/page-content/structure/jcr:content/root","selectors":null,"servlet":"Script /apps/core/wcm/components/container/v1/container/container.html","totalTime":119,"selfTime":2}-->
     </div>
-</div>
-<script type="text/javascript" src="/etc.clientlibs/newspaper/clientlibs/clientlib-site.js"></script>
-<script type="text/javascript" src="/etc.clientlibs/newspaper/clientlibs/clientlib-base.js"></script>
+
+
+
+
+    <script
+        src="/etc.clientlibs/newspaper/clientlibs/clientlib-site.lc-33ae4dc65c48613af1d6d86d9bf98e73-lc.min.js"></script>
+
+
+
+
+
+    <script async
+        src="/etc.clientlibs/core/wcm/components/commons/site/clientlibs/container.lc-0a6aff292f5cc42142779cde92054524-lc.min.js"></script>
+    <script async
+        src="/etc.clientlibs/core/wcm/components/commons/site/clientlibs/container.lc-0a6aff292f5cc42142779cde92054524-lc.min.js"></script>
+    <script async
+        src="/etc.clientlibs/clientlibs/granite/jquery/granite/csrf.lc-56934e461ff6c436f962a5990541a527-lc.min.js"></script>
+    <script async
+        src="/etc.clientlibs/newspaper/clientlibs/clientlib-base.lc-8319473b43fbb917bcaabb183eca568c-lc.min.js"></script>
+
+
+
+
+
+
+    <!--cq{"decorated":true,"type":"cq/cloudserviceconfigs/components/servicecomponents","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/cloudservices","selectors":null,"servlet":"Script /libs/cq/cloudserviceconfigs/components/servicecomponents/servicecomponents.jsp","totalTime":0,"selfTime":0}-->
+
+
+    <!--cq{"decorated":false,"type":"cq/cloudconfig/components/scripttags/footer","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/cloudconfig-footer","structurePath":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content/cloudconfig-footer","selectors":null,"servlet":"Script /libs/cq/cloudconfig/components/scripttags/footer/footer.html","totalTime":2,"selfTime":2}-->
+
+
+
+
+
 </body>
+
 </html>
+<!--cq{"decorated":false,"type":"newspaper/components/page","path":"/content/newspaper/language-masters/en/articles/2026/04/15/bai-viet-1/jcr:content","selectors":null,"servlet":"Script /apps/core/wcm/components/page/v3/page/page.html","totalTime":166,"selfTime":38}-->

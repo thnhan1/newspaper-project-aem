@@ -1,0 +1,14 @@
+<sly data-sly-use.model="com.fa.core.models.TagsListModel"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html">
+
+    <div class="cmp-tagslist" data-sly-test="${!model.empty}">
+        <ul class="cmp-tagslist__list">
+            <li class="cmp-tagslist__item" data-sly-repeat.tag="${model.tags}">
+                <span class="cmp-tagslist__item-title">${tag.title}</span>
+            </li>
+        </ul>
+    </div>
+    
+    <sly data-sly-call="${template.placeholder @ isEmpty=model.empty, classAppend='cmp-tagslist'}"></sly>
+
+</sly>

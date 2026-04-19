@@ -1,0 +1,36 @@
+.cmp-tagslist {
+    margin: 1.5rem 0;
+    color: $color-article-red;
+
+    &__list {
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    &__item {
+        display: inline-block;
+        border: 1px solid $color-article-red;
+        border-radius: 9999px;
+    }
+
+    &__item-title {
+        display: block;
+        padding: 0.25rem 0.75rem;
+        background-color: $color-article-white;
+        color: $color-article-red;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover,
+        &:focus {
+            background-color: $color-article-red;
+            color: #ffffff;
+        }
+    }
+}
